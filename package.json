@@ -2,12 +2,19 @@
   "name": "my-portfolio-monorepo",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend/portfolio",
+    "frontend/admin-panel",
+    "backend"
+  ],
   "scripts": {
+    "build": "npm --prefix frontend/portfolio run build",
+    "dev": "npm --prefix frontend/portfolio run dev",
     "dev:backend": "npm --prefix backend run dev",
     "dev:portfolio": "npm --prefix frontend/portfolio run dev",
     "dev:admin": "npm --prefix frontend/admin-panel run dev",
     "build:portfolio": "npm --prefix frontend/portfolio run build",
     "build:admin": "npm --prefix frontend/admin-panel run build",
-    "build": "npm run build:portfolio && npm run build:admin"
+    "build:all": "npm --prefix frontend/portfolio run build && npm --prefix frontend/admin-panel run build"
   }
 }
