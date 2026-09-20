@@ -9,7 +9,6 @@ const errorHandler = require('./middleware/errorHandler');
 const { generalLimiter } = require('./middleware/rateLimiter');
 const path = require('path');
 const fs = require('fs');
-//redeployment check..
 
 // Route imports
 const publicRoutes = require('./routes/publicRoutes');
@@ -34,15 +33,29 @@ if (!fs.existsSync(logsDir)) {
 // ── Security Middleware ──
 app.set('trust proxy', 1);
 app.use(helmet());
+
+// Dynamic CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  ...(process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',').map(s => s.trim()) : []),
+  ...(process.env.ADMIN_URL ? process.env.ADMIN_URL.split(',').map(s => s.trim()) : []),
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()) : []),
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    (process.env.CLIENT_URL || 'http://localhost:3000').trim(),
-    (process.env.ADMIN_URL || 'http://localhost:3001').trim(),
-    'http://localhost:5173',
-    'http://localhost:5174'
-  ],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, server-to-server)
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   credentials: true,
 }));
+
 app.use(mongoSanitize()); // Prevent NoSQL injection
 
 // ── Body Parsers ──
@@ -64,8 +77,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 
 // ── Health Check ──
+const startTime = Date.now();
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.status(200).json({
+    status: 'OK',
+    uptimeSeconds: Math.floor((Date.now() - startTime) / 1000),
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+  });
 });
 
 // ── 404 Handler ──

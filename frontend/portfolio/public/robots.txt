@@ -1,0 +1,7 @@
+# Allow all search engines to crawl public portfolio pages
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://my-protofoilo-rtte.vercel.app/sitemap.xml

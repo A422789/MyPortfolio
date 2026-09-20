@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const protect = require('../middleware/auth');
 const { validate, schemas } = require('../middleware/validate');
+const { uploadCleanup } = require('../middleware/uploadCleanup');
 
 // Controllers
 const { updateProfile, updateHeroImage, updateAboutImage, updateContactImage, updateCV } = require('../controllers/profileController');
@@ -12,6 +13,7 @@ const { getProjects, createProject, updateProject, deleteProject } = require('..
 const { getSkills, createSkill, updateSkill, deleteSkill } = require('../controllers/skillController');
 const { getCertificates, createCertificate, updateCertificate, deleteCertificate } = require('../controllers/certificateController');
 const { getContacts, markAsRead, deleteContact } = require('../controllers/contactController');
+const { getDashboardStats, getActivityLogs } = require('../controllers/analyticsController');
 
 // Multer config for file uploads (temp storage)
 const storage = multer.diskStorage({
@@ -45,12 +47,16 @@ const upload = multer({
 // All admin routes require JWT
 router.use(protect);
 
+// ── Analytics & Stats ──
+router.get('/stats', getDashboardStats);
+router.get('/activity-logs', getActivityLogs);
+
 // ── Profile ──
 router.put('/profile', validate(schemas.profileUpdate), updateProfile);
-router.put('/profile/hero-image', upload.single('image'), updateHeroImage);
-router.put('/profile/about-image', upload.single('image'), updateAboutImage);
-router.put('/profile/contact-image', upload.single('image'), updateContactImage);
-router.put('/profile/cv', upload.single('file'), updateCV);
+router.put('/profile/hero-image', upload.single('image'), uploadCleanup, updateHeroImage);
+router.put('/profile/about-image', upload.single('image'), uploadCleanup, updateAboutImage);
+router.put('/profile/contact-image', upload.single('image'), uploadCleanup, updateContactImage);
+router.put('/profile/cv', upload.single('file'), uploadCleanup, updateCV);
 
 // ── Social Links ──
 router.get('/social-links', getSocialLinks);
@@ -60,8 +66,8 @@ router.delete('/social-links/:id', validate(schemas.objectId, 'params'), deleteS
 
 // ── Projects ──
 router.get('/projects', getProjects);
-router.post('/projects', upload.single('image'), createProject);
-router.put('/projects/:id', validate(schemas.objectId, 'params'), upload.single('image'), updateProject);
+router.post('/projects', upload.single('image'), uploadCleanup, createProject);
+router.put('/projects/:id', validate(schemas.objectId, 'params'), upload.single('image'), uploadCleanup, updateProject);
 router.delete('/projects/:id', validate(schemas.objectId, 'params'), deleteProject);
 
 // ── Skills ──
@@ -72,8 +78,8 @@ router.delete('/skills/:id', validate(schemas.objectId, 'params'), deleteSkill);
 
 // ── Certificates ──
 router.get('/certificates', getCertificates);
-router.post('/certificates', upload.single('file'), createCertificate);
-router.put('/certificates/:id', validate(schemas.objectId, 'params'), upload.single('file'), updateCertificate);
+router.post('/certificates', upload.single('file'), uploadCleanup, createCertificate);
+router.put('/certificates/:id', validate(schemas.objectId, 'params'), upload.single('file'), uploadCleanup, updateCertificate);
 router.delete('/certificates/:id', validate(schemas.objectId, 'params'), deleteCertificate);
 
 // ── Contact Submissions ──
