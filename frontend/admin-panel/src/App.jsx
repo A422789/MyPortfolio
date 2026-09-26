@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -14,22 +15,29 @@ import SocialLinks from './pages/SocialLinks';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
         <Toaster
           position="top-right"
           toastOptions={{
             style: {
-              background: '#0a0a0a',
-              color: '#fff',
-              border: '1px solid rgba(206,166,5,0.3)',
+              background: 'var(--color-surface-1)',
+              color: 'var(--color-text-1)',
+              border: '1px solid var(--color-border)',
             },
             success: {
               iconTheme: {
-                primary: '#cea605',
-                secondary: '#000',
+                primary: 'var(--color-success)',
+                secondary: 'var(--color-surface-1)',
               },
             },
+            error: {
+              iconTheme: {
+                primary: 'var(--color-danger)',
+                secondary: 'var(--color-surface-1)',
+              },
+            }
           }}
         />
         <Routes>
@@ -45,7 +53,8 @@ const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

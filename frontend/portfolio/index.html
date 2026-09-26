@@ -3,20 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Ahmed Ayyad - Full Stack MERN Developer Portfolio. Discover dynamic web applications, engineering case studies, skills, and credentials." />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="description" content="Ahmed Ayyad — Full-stack developer building backend-first web solutions, from database design to deployment. Open to remote entry-level roles in Europe & Gulf, and hybrid internship in Islamabad." />
+    <meta name="author" content="Ahmed Ayyad" />
     <link rel="canonical" href="https://my-protofoilo-rtte.vercel.app/" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Performance: Preconnect to critical CDN domains -->
+    <!-- Open Graph -->
+    <meta property="og:type"        content="profile" />
+    <meta property="og:url"         content="https://my-protofoilo-rtte.vercel.app/" />
+    <meta property="og:title"       content="Ahmed Ayyad | Full-Stack Developer Portfolio" />
+    <meta property="og:description" content="Backend-first full-stack developer. MERN stack. Open to remote roles (Europe & Gulf) and hybrid internship in Islamabad." />
+    <meta property="og:image"       content="/og-preview.jpg" />
+    <meta name="twitter:card"       content="summary_large_image" />
+
+    <!-- Performance: Preconnect to CDN -->
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <title>Ahmed Ayyad | Full Stack Developer Portfolio</title>
+    <title>Ahmed Ayyad | Full-Stack Developer Portfolio</title>
+
+    <!--
+      ╔══════════════════════════════════════════════════════════════╗
+      ║  PRE-HYDRATION THEME SCRIPT                                  ║
+      ║  Reads localStorage BEFORE React mounts to set              ║
+      ║  data-version and data-mode on <html>.                      ║
+      ║  This eliminates any flash of the wrong theme.              ║
+      ╚══════════════════════════════════════════════════════════════╝
+    -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var version = localStorage.getItem('portfolio_theme_version') || 'v2';
+        var mode    = localStorage.getItem('portfolio_theme_mode')    || 'system';
+
+        // Resolve 'system' to actual mode
+        var resolved = mode;
+        if (mode === 'system') {
+          resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        root.setAttribute('data-version', version);
+        root.setAttribute('data-mode', resolved);
+
+        // Sync theme-color meta immediately
+        var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta) {
+          if (version === 'v1') {
+            themeColorMeta.content = resolved === 'dark' ? '#000000' : '#fdf8e7';
+          } else {
+            themeColorMeta.content = resolved === 'dark' ? '#0f172a' : '#f8fafc';
+          }
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-black text-white antialiased overflow-x-hidden">
+  <body class="antialiased overflow-x-hidden">
+    <!-- Skip to main content — keyboard accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold focus:text-sm"
+      style="background:var(--color-accent);color:var(--color-accent-fg)"
+    >
+      Skip to main content
+    </a>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

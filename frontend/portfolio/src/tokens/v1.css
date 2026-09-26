@@ -1,0 +1,130 @@
+/*
+ * ═══════════════════════════════════════════════════════════════
+ *  DESIGN SYSTEM — v1 "Classic Gold/Black" Tokens
+ *  Both light and dark modes for the v1 identity.
+ *  v1 dark  = the original look, pixel-equivalent to today.
+ *  v1 light = a derived light variant of the gold identity.
+ * ═══════════════════════════════════════════════════════════════
+ */
+
+/* ── v1 DARK (default for v1) ─────────────────────────────────── */
+:root[data-version="v1"],
+:root[data-version="v1"][data-mode="dark"] {
+  /* Background layers */
+  --color-bg:        #000000;
+  --color-surface-1: #0a0a0a;
+  --color-surface-2: #0d0d0d;
+  --color-surface-3: #0c0c0c;
+
+  /* Borders */
+  --color-border:        rgba(206, 166, 5, 0.15);
+  --color-border-accent: rgba(206, 166, 5, 0.35);
+
+  /* Text */
+  --color-text-1: #ffffff;
+  --color-text-2: #b3b3b3;
+  --color-text-3: #8c8c8c;
+
+  /* Accent — Gold */
+  --color-accent:       #cea605;
+  --color-accent-hover: #b49106;
+  --color-accent-light: #f2de8c;
+  --color-accent-fg:    #000000;
+
+  /* Semantic */
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger:  #f87171;
+
+  /* Navbar */
+  --color-nav-bg:          rgba(0, 0, 0, 0.80);
+  --color-nav-link:        #8c8c8c;
+  --color-nav-link-active: #cea605;
+  --color-nav-link-hover:  #f2de8c;
+
+  /* v1-exclusive decorative tokens */
+  --glow-sm:   0 0 15px 7px  rgba(206, 166, 5, 0.30);
+  --glow-md:   0 0 25px 10px rgba(206, 166, 5, 0.50);
+  --glow-hero: 0 0 80px 20px rgba(206, 166, 5, 0.25);
+  --glow-card: 0 0 60px 10px rgba(206, 166, 5, 0.25);
+  --glow-btn:  0 0 15px  7px rgba(206, 166, 5, 0.30);
+
+  --text-shadow-heading: 0 0 20px rgba(180, 145, 6, 0.60);
+  --text-shadow-name:    0 0 25px rgba(206, 166, 5, 0.40);
+  --text-shadow-logo:    0 0 20px rgba(180, 145, 6, 0.50);
+
+  --cursor-default: auto;
+  --cursor-pointer: pointer;
+
+  --scrollbar-width:     70px;
+  --scrollbar-thumb-url: url('../assets/lion.png');
+
+  /* Transitions */
+  --duration-color: 200ms;
+  --duration-ui:    250ms;
+
+  /* Input */
+  --color-input-bg:     transparent;
+  --color-input-border: #cea605;
+  --color-input-focus:  #b49106;
+  --color-input-text:   #ffffff;
+  --color-placeholder:  rgba(255,255,255,0.3);
+}
+
+/* ── v1 LIGHT ─────────────────────────────────────────────────── */
+:root[data-version="v1"][data-mode="light"] {
+  /* Background layers */
+  --color-bg:        #fdf8e7;
+  --color-surface-1: #fffaed;
+  --color-surface-2: #fef9e0;
+  --color-surface-3: #fefbf0;
+
+  /* Borders */
+  --color-border:        rgba(180, 145, 6, 0.25);
+  --color-border-accent: rgba(180, 145, 6, 0.50);
+
+  /* Text */
+  --color-text-1: #1a1400;
+  --color-text-2: #4a3d00;
+  --color-text-3: #7a6b30;
+
+  /* Accent — Gold (darker for light bg contrast) */
+  --color-accent:       #a07d00;
+  --color-accent-hover: #7a5f00;
+  --color-accent-light: #f2de8c;
+  --color-accent-fg:    #ffffff;
+
+  /* Semantic */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger:  #dc2626;
+
+  /* Navbar */
+  --color-nav-bg:          rgba(253, 248, 231, 0.90);
+  --color-nav-link:        #7a6b30;
+  --color-nav-link-active: #a07d00;
+  --color-nav-link-hover:  #5a4700;
+
+  /* v1-exclusive decorative tokens (toned down for light mode) */
+  --glow-sm:   0 0 10px 4px  rgba(160, 125, 0, 0.20);
+  --glow-md:   0 0 18px 6px  rgba(160, 125, 0, 0.35);
+  --glow-hero: 0 0 50px 12px rgba(160, 125, 0, 0.15);
+  --glow-card: 0 0 40px  8px rgba(160, 125, 0, 0.15);
+  --glow-btn:  0 0 10px  4px rgba(160, 125, 0, 0.20);
+
+  --text-shadow-heading: 0 0 15px rgba(130, 100, 0, 0.30);
+  --text-shadow-name:    0 0 18px rgba(160, 125, 0, 0.25);
+  --text-shadow-logo:    0 0 15px rgba(130, 100, 0, 0.25);
+
+  --cursor-default: auto;
+  --cursor-pointer: pointer;
+
+  --scrollbar-width:     70px;
+  --scrollbar-thumb-url: url('../assets/lion.png');
+
+  --color-input-bg:     rgba(255,255,255,0.6);
+  --color-input-border: #a07d00;
+  --color-input-focus:  #7a5f00;
+  --color-input-text:   #1a1400;
+  --color-placeholder:  rgba(26, 20, 0, 0.35);
+}

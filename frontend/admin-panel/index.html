@@ -2,11 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>admin-dashboard</title>
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Admin Panel | Ahmed Ayyad Portfolio CMS</title>
+
+    <!-- Pre-hydration theme script: zero flash of wrong theme -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var version = localStorage.getItem('admin_theme_version') || 'v2';
+        var mode    = localStorage.getItem('admin_theme_mode')    || 'system';
+        var resolved = mode;
+        if (mode === 'system') {
+          resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        root.setAttribute('data-version', version);
+        root.setAttribute('data-mode', resolved);
+        var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta) {
+          if (version === 'v1') {
+            themeColorMeta.content = resolved === 'dark' ? '#000000' : '#fdf8e7';
+          } else {
+            themeColorMeta.content = resolved === 'dark' ? '#0f172a' : '#f8fafc';
+          }
+        }
+      })();
+    </script>
   </head>
-  <body>
+  <body class="antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
