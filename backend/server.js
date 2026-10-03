@@ -57,10 +57,9 @@ app.use(cors({
 
     const cleanOrigin = origin.trim().replace(/\/$/, '');
 
-    // Allow explicitly configured origins, any vercel.app deployment, or localhost
+    // Strict whitelist: only explicitly configured URLs and localhost
     const isAllowed =
       allowedOrigins.includes(cleanOrigin) ||
-      cleanOrigin.endsWith('.vercel.app') ||
       /^http:\/\/localhost:\d+$/.test(cleanOrigin);
 
     if (isAllowed) {
