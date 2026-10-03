@@ -43,10 +43,12 @@ const ProjectCard = ({ image, title, overview, liveLink, sourceLink }) => {
     >
       <div className="w-full h-48 overflow-hidden rounded-3xl bg-black/40">
         <img 
-          src={optimizeCloudinaryUrl(image)} 
+          src={optimizeCloudinaryUrl(image, { width: 700 })} 
           alt={title} 
           loading="lazy"
           decoding="async"
+          width="620"
+          height="336"
           className="w-full h-full object-cover" 
         />
       </div>
@@ -60,12 +62,24 @@ const ProjectCard = ({ image, title, overview, liveLink, sourceLink }) => {
 
       <div className="flex items-center justify-start gap-6 mt-4">
         {sourceLink && (
-          <a href={sourceLink} target="_blank" rel="noopener noreferrer" className="project-button">
+          <a
+            href={sourceLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-button"
+            aria-label={`Source code for ${title}`}
+          >
             Source Code
           </a>
         )}
         {liveLink && (
-          <a href={liveLink} target="_blank" rel="noopener noreferrer" className="project-button">
+          <a
+            href={liveLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-button"
+            aria-label={`Live demo for ${title}`}
+          >
             Live Demo
           </a>
         )}

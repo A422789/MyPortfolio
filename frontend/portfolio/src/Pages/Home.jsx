@@ -96,6 +96,8 @@ const Home = () => {
       <motion.img 
         src={optimizeCloudinaryUrl(profile.heroImage?.url)} 
         alt={profile.name ? `${profile.name} - Hero Portrait` : 'Ahmad Ayyad - Full-Stack Developer'}
+        width="500"
+        height="500"
         className="w-full max-w-md lg:max-w-lg object-contain"
         fetchPriority="high"
         initial={{ opacity: 0, scale: 0.5, x: 100 }}

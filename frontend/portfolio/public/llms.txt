@@ -1,0 +1,21 @@
+# Ahmad Ayyad - Full-Stack MERN Developer
+
+> Portfolio and technical profile of Ahmad Ayyad, Full-Stack Software Engineer specializing in MongoDB, Express.js, React, Node.js, and modern cloud architectures.
+
+## Professional Summary
+Ahmad Ayyad is a passionate software engineering professional and full-stack web developer with expertise in building responsive, high-performance web applications, secure RESTful APIs, and scalable backends.
+
+## Core Technical Skills
+- **Frontend**: React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Framer Motion, Responsive UI/UX
+- **Backend**: Node.js, Express.js, REST APIs, JWT Authentication, Role-based Access Control
+- **Database & Storage**: MongoDB, Mongoose, Cloudinary Media Storage
+- **DevOps & Tools**: Git, GitHub, Vercel, Railway, Postman, Vite
+
+## Featured Projects
+- [HE Skincare E-Commerce Platform](https://github.com/A422789/SkinCareReactProject): Full-stack MERN e-commerce web application featuring dynamic catalog filtering, cart management, and administrative dashboard.
+- [Collaborative Project Management Tool](https://github.com/A422789/Project-Management-Tool): Real-time collaborative workspace for team task tracking, sprint planning, and role management.
+
+## Contact & Social Links
+- Portfolio Website: https://my-protofoilo-rtte.vercel.app/
+- GitHub Profile: https://github.com/A422789
+- LinkedIn Profile: https://www.linkedin.com/in/ahmad-ayyad-608293304/

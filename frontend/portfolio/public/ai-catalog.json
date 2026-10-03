@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/schemas/v1/catalog.json",
+  "name": "Ahmad Ayyad Portfolio",
+  "description": "Full-stack developer portfolio showcasing MERN projects, skills, and certifications.",
+  "version": "1.0.0",
+  "provider": {
+    "name": "Ahmad Ayyad",
+    "url": "https://my-protofoilo-rtte.vercel.app"
+  },
+  "resources": [
+    {
+      "name": "Projects",
+      "type": "api",
+      "url": "https://myprotofoilo-production.up.railway.app/api/projects",
+      "description": "Public REST endpoint for portfolio project listings."
+    },
+    {
+      "name": "Profile",
+      "type": "api",
+      "url": "https://myprotofoilo-production.up.railway.app/api/profile",
+      "description": "Public REST endpoint for developer bio and contact info."
+    }
+  ]
+}

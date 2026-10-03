@@ -20,7 +20,7 @@ const ContactInfoCard = ({ icon, title, value ,extraVal}) => {
       </div>
       {/* المحتوى */}
       <div className="flex flex-col">
-        <h4 className="font-semibold text-white text-lg">{title}</h4>
+        <h3 className="font-semibold text-white text-lg">{title}</h3>
         <p className="text-[#b3b3b3] text-base break-all">{value} <br /> {extraVal}</p>
       </div>
     </div>
