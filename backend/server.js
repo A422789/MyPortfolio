@@ -33,14 +33,46 @@ if (!fs.existsSync(logsDir)) {
 // ── Security Middleware ──
 app.set('trust proxy', 1);
 app.use(helmet());
+// ── Dynamic CORS Configuration ──
+const configuredOrigins = [
+  process.env.CLIENT_URL,
+  process.env.CLIENT_URL_1,
+  process.env.CLIENT_URL_2,
+  process.env.ADMIN_URL,
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:5173',
+  'http://localhost:5174',
+]
+  .filter(Boolean)
+  .flatMap((url) => url.split(','))
+  .map((url) => url.trim().replace(/\/$/, ''));
+
+const allowedOrigins = [...new Set(configuredOrigins)];
+
 app.use(cors({
-  origin: [
-    (process.env.CLIENT_URL_1 || process.env.CLIENT_URL_2 || 'http://localhost:3000').trim(),
-    (process.env.ADMIN_URL || 'http://localhost:3001').trim(),
-    'http://localhost:5173',
-    'http://localhost:3001'
-  ],
+  origin: (origin, callback) => {
+    // Allow non-browser requests (e.g. mobile, curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    const cleanOrigin = origin.trim().replace(/\/$/, '');
+
+    // Allow explicitly configured origins, any vercel.app deployment, or localhost
+    const isAllowed =
+      allowedOrigins.includes(cleanOrigin) ||
+      cleanOrigin.endsWith('.vercel.app') ||
+      /^http:\/\/localhost:\d+$/.test(cleanOrigin);
+
+    if (isAllowed) {
+      return callback(null, true);
+    }
+
+    logger.warn(`CORS blocked for origin: ${origin}`);
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 }));
 app.use(mongoSanitize()); // Prevent NoSQL injection
 
