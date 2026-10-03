@@ -97,7 +97,7 @@ npm run seed
 ### 4. Booting Up
 You will need three terminals:
 
-**Terminal 1 (Backend):**
+**Terminal 1 (Backend API):**
 ```bash
 cd backend
 npm run dev
@@ -105,14 +105,14 @@ npm run dev
 
 **Terminal 2 (Frontend Portfolio):**
 ```bash
-# In the root directory
+cd frontend/portfolio
 npm install
 npm run dev
 ```
 
 **Terminal 3 (Admin Dashboard):**
 ```bash
-cd admin-dashboard
+cd frontend/admin-dashboard
 npm install
 npm run dev
 ```

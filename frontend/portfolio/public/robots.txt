@@ -1,0 +1,5 @@
+# robots.txt for Ahmad Ayyad Portfolio
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmad-ayyad.vercel.app/sitemap.xml

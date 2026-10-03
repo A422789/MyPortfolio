@@ -38,7 +38,7 @@ app.use(cors({
     (process.env.CLIENT_URL || 'http://localhost:3000').trim(),
     (process.env.ADMIN_URL || 'http://localhost:3001').trim(),
     'http://localhost:5173',
-    'http://localhost:5174'
+    'http://localhost:3001'
   ],
   credentials: true,
 }));
