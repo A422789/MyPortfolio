@@ -57,10 +57,11 @@ app.use(cors({
 
     const cleanOrigin = origin.trim().replace(/\/$/, '');
 
-    // Strict whitelist: only explicitly configured URLs and localhost
+    // Strict whitelist: explicitly configured URLs, localhost, and Vercel domains
     const isAllowed =
       allowedOrigins.includes(cleanOrigin) ||
-      /^http:\/\/localhost:\d+$/.test(cleanOrigin);
+      /^http:\/\/localhost:\d+$/.test(cleanOrigin) ||
+      /\.vercel\.app$/.test(cleanOrigin);
 
     if (isAllowed) {
       return callback(null, true);

@@ -1,10 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import ContactInfoCard from '../Components/ContactInfoCard';
 import API from '../api/axios.js';
 import { useProfile } from '../context/ProfileContext';
-import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 const Contact = () => {
   const { ref, inView } = useInView({
@@ -12,153 +10,252 @@ const Contact = () => {
     triggerOnce: true,
   });
 
-  const formRef = useRef();
   const { profile } = useProfile();
-  const [submitting, setSubmitting] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const icons = {
-    email: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>,
-    phone: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>,
-    location: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>,
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
+    if (!formData.name || !formData.email || !formData.message) return;
+
+    setStatus('submitting');
     setErrorMsg('');
 
-    const formData = new FormData(formRef.current);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message'),
-    };
-
     try {
-      // 1. Save to our backend (for the admin dashboard)
-      await API.post('/contact', data);
+      // 1. Save to backend
+      await API.post('/contact', formData).catch(() => {});
 
-      // 2. Send to Formspree (for email notification)
+      // 2. Send via Formspree
       await fetch('https://formspree.io/f/mwpywbpo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(formData),
       });
 
-      setShowMessage(true);
-      formRef.current.reset();
-      setTimeout(() => setShowMessage(false), 3000);
-    } catch (error) {
-      const msg = error.response?.data?.message || error.response?.data?.errors?.join(', ') || 'Failed to send message. Please try again.';
-      setErrorMsg(msg);
-    } finally {
-      setSubmitting(false);
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setStatus('idle'), 4000);
+    } catch (err) {
+      console.error(err);
+      setErrorMsg('Failed to send message. Please try again or email directly.');
+      setStatus('error');
     }
   };
 
+  const cleanPhone = (profile?.phone || '+20 1225044423').replace(/[^0-9]/g, '');
+
   return (
-    <section ref={ref} className='min-h-screen flex flex-col items-center justify-center py-20 px-4' id='contact'>
-      
-      {/* العنوان */}
-      <motion.h2
-        initial={{ opacity: 0, y: -50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="text-4xl sm:text-5xl font-bold text-center mb-16 logo"
-      >
-        <span className='text-white' style={{ textShadow: '5px 5px 15px #b49106' }}>
-          Contact Me
-        </span>
-      </motion.h2>
-
-      {/* الحاوية الرئيسية */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-16">
-
-        {/* الفورم + الصورة */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
-          
-          {/* الفورم */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full lg:w-4/5 order-1"
+    <section ref={ref} className="min-h-screen bg-black text-white flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8" id="contact">
+      <div className="max-w-7xl mx-auto w-full">
+        {/* Header */}
+        <div className="max-w-3xl mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest text-[#cea605]">
+            COMMUNICATION & INQUIRIES
+          </span>
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="text-3xl sm:text-5xl font-light tracking-tight text-white mt-1"
           >
-            <form ref={formRef}
-              onSubmit={handleSubmit}
-              className="w-full bg-black/30 backdrop-blur-lg rounded-2xl p-8 flex flex-col gap-6"
-            >
-              <input 
-                type="text" 
-                name="name"
-                placeholder="Your Name"
-                className="contact-input"
-                required
-              />
-
-              <input 
-                type="email" 
-                name="email"
-                placeholder="Your Email"
-                className="contact-input"
-                required
-              />
-
-              <textarea 
-                name="message"
-                placeholder="Message"
-                rows="5"
-                className="contact-input"
-                required
-              ></textarea>
-
-              <button 
-                type="submit" 
-                disabled={submitting}
-                className="contact-send-button mt-2"
-              >
-                {submitting ? "Sending..." : "Send"}
-              </button>
-
-              {showMessage && <p className='text-green-500'>Message sent successfully! 🚀</p>}
-              {errorMsg && <p className='text-red-500'>{errorMsg}</p>}
-            </form>
-          </motion.div>
-
-          {/* الصورة */}
-          <motion.div 
-            className="w-64 h-64 sm:w-80 sm:h-80 lg:w-90 order-2 lg:order-2 relative group"
-          >
-            <img 
-              src={optimizeCloudinaryUrl(profile?.contactImage?.url)} 
-              alt={profile?.name ? `${profile.name} - Contact` : 'Contact Portrait'} 
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover object-center rounded-full"
-            />
-            <div className="
-              absolute inset-0 rounded-full 
-              opacity-0 group-hover:opacity-100 
-              shadow-[0_0_40px_8px_rgba(206,166,5,0.6)] 
-              transition-opacity duration-300 ease-in-out
-            "></div>
-          </motion.div>
-
+            Let's Build Something <span className="text-[#cea605] font-normal">Exceptional</span>
+          </motion.h2>
+          <p className="text-sm sm:text-base text-[#a3a3a3] font-light mt-3 leading-relaxed">
+            Open to full-stack developer opportunities, software engineering internships in Islamabad, Pakistan, and remote positions.
+          </p>
         </div>
 
-        {/* كاردات المعلومات */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="w-full lg:w-[80%] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 order-3"
-        >
-          <ContactInfoCard icon={icons.email} title="Email" value={profile?.email || 'Loading...'} />
-          <ContactInfoCard icon={icons.phone} title="Phone" value={profile?.phone || 'Loading...'} />
-          <ContactInfoCard icon={icons.location} title="Location" value={profile?.location || 'Loading...'} />
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Left Column: Direct Communication Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="lg:col-span-5 space-y-6"
+          >
+            <div className="p-8 rounded-3xl bg-white/[0.03] border border-[#725c02]/40 hover:border-[#cea605]/60 transition-colors shadow-xl space-y-6">
+              <h3 className="text-xl font-normal text-white">Direct Communication</h3>
+
+              <div className="space-y-5 text-sm">
+                <div>
+                  <span className="text-xs text-[#808080] block font-mono tracking-wider">EMAIL ADDRESS</span>
+                  <a
+                    href={`mailto:${profile?.email || 'a422789255@gmail.com'}`}
+                    className="font-light text-white hover:text-[#f2de8c] transition-colors text-base"
+                  >
+                    {profile?.email || 'a422789255@gmail.com'}
+                  </a>
+                </div>
+
+                <div>
+                  <span className="text-xs text-[#808080] block font-mono tracking-wider">WHATSAPP / PHONE</span>
+                  <a
+                    href={`https://wa.me/${cleanPhone}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-light text-white hover:text-[#f2de8c] transition-colors text-base"
+                  >
+                    {profile?.phone || '+20 1225044423'}
+                  </a>
+                </div>
+
+                <div>
+                  <span className="text-xs text-[#808080] block font-mono tracking-wider">LOCATION</span>
+                  <span className="font-light text-white text-base">
+                    {profile?.location && profile.location !== 'Cairo ,Egypt' ? profile.location : 'Islamabad, Pakistan'}
+                  </span>
+                </div>
+
+                <div>
+                  <span className="text-xs text-[#808080] block font-mono tracking-wider">CURRENT STATUS</span>
+                  <span className="font-light text-[#f2de8c] text-sm">
+                    Open to hybrid internship (Islamabad) and remote entry-level roles
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-white/10 flex items-center gap-6 text-sm">
+                <a
+                  href={profile?.github || 'https://github.com/A422789'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#b3b3b3] hover:text-[#f2de8c] transition-colors font-light"
+                >
+                  GitHub ↗
+                </a>
+                <a
+                  href={profile?.linkedin || 'https://www.linkedin.com/in/ahmad-ayyad-608293304/'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#b3b3b3] hover:text-[#f2de8c] transition-colors font-light"
+                >
+                  LinkedIn ↗
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="lg:col-span-7"
+          >
+            <div className="p-8 sm:p-10 rounded-3xl bg-white/[0.03] border border-[#725c02]/40 shadow-xl">
+              <h3 className="text-2xl font-light text-white mb-6">Send an Inquiry</h3>
+
+              {status === 'success' ? (
+                <div className="p-8 rounded-2xl bg-[#cea605]/10 border border-[#cea605]/40 text-center space-y-4">
+                  <div className="w-14 h-14 rounded-full bg-[#cea605] text-black font-bold flex items-center justify-center mx-auto text-2xl shadow-[0_0_20px_#cea605]">
+                    ✓
+                  </div>
+                  <h4 className="text-xl font-normal text-white">Message Received!</h4>
+                  <p className="text-sm text-[#b3b3b3] font-light max-w-sm mx-auto">
+                    Thank you for reaching out. You can also reach me directly at{' '}
+                    <a href={`mailto:${profile?.email || 'a422789255@gmail.com'}`} className="text-[#f2de8c] underline">
+                      {profile?.email || 'a422789255@gmail.com'}
+                    </a>.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setStatus('idle')}
+                    className="contact-send-button mt-4"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="name" className="block text-xs font-mono text-[#b3b3b3] uppercase tracking-wider mb-2">
+                        Your Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="contact-input w-full"
+                        placeholder="Ahmed Ayyad"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="email" className="block text-xs font-mono text-[#b3b3b3] uppercase tracking-wider mb-2">
+                        Your Email *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="contact-input w-full"
+                        placeholder="name@company.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="subject" className="block text-xs font-mono text-[#b3b3b3] uppercase tracking-wider mb-2">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="contact-input w-full"
+                      placeholder="Opportunity / Collaboration"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-xs font-mono text-[#b3b3b3] uppercase tracking-wider mb-2">
+                      Message *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="6"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      className="contact-input w-full resize-y"
+                      placeholder="Tell me about your team, role, or project..."
+                    />
+                  </div>
+
+                  {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
+
+                  <button
+                    type="submit"
+                    disabled={status === 'submitting'}
+                    className="contact-send-button w-full sm:w-auto"
+                  >
+                    {status === 'submitting' ? 'Transmitting...' : 'Send Message'}
+                  </button>
+                </form>
+              )}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

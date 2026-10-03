@@ -48,7 +48,7 @@ const Skills = () => {
         <p className="text-red-400 mb-4">{error}</p>
         <button
           onClick={fetchSkills}
-          className="px-6 py-2 bg-[#cea605] text-black font-semibold rounded-xl hover:bg-[#f2de8c] transition-colors"
+          className="px-6 py-2 bg-[#cea605] text-black font-normal rounded-xl hover:bg-[#f2de8c] transition-colors"
         >
           Retry
         </button>
@@ -60,44 +60,53 @@ const Skills = () => {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.06,
       },
     },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
   };
 
   return (
-    <section ref={ref} className="min-h-screen bg-black flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
-      <motion.h2
-        initial={{ opacity: 0, y: -50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="text-4xl sm:text-5xl font-bold text-center mb-16 logo"
-      >
-        <span className="text-white" style={{ textShadow: '5px 5px 15px #b49106' }}>
-          My Skills
-        </span>
-      </motion.h2>
+    <section ref={ref} className="min-h-screen bg-black flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8" id="skills">
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="text-center mb-16">
+          <span className="text-xs font-mono uppercase tracking-widest text-[#cea605]">
+            TECHNICAL PROFICIENCY
+          </span>
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-3xl sm:text-5xl font-light tracking-tight text-white mt-2"
+          >
+            My Technical Skills
+          </motion.h2>
+          <p className="text-sm text-[#a3a3a3] font-light mt-2 max-w-xl mx-auto">
+            Interactive stack of technologies, frameworks, and tools used across full-stack applications.
+          </p>
+        </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        className="w-[85%] sm:w-[80%] max-w-7xl mx-auto flex flex-wrap justify-center items-start gap-x-8 sm:gap-x-12 gap-y-10"
-      >
-        {skills.map((skill, index) => (
-          <motion.div key={skill._id || index} variants={itemVariants}>
-            <SkillIcon 
-              icon={<div dangerouslySetInnerHTML={{ __html: skill.iconSvg }} />} 
-              name={skill.name} 
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="w-[90%] sm:w-[85%] max-w-7xl mx-auto flex flex-wrap justify-center items-start gap-x-8 sm:gap-x-12 gap-y-10"
+        >
+          {skills.map((skill, index) => (
+            <motion.div key={skill._id || index} variants={itemVariants}>
+              <SkillIcon 
+                icon={<div dangerouslySetInnerHTML={{ __html: skill.iconSvg }} />} 
+                name={skill.name} 
+                delay={index}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };

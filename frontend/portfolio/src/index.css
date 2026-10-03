@@ -7,40 +7,22 @@ html {
 body{
   background-color: black;
 }
-/* Scrollbar */
+/* Clean, modern, slim scrollbar */
 ::-webkit-scrollbar {
-  width: 70px;
-  background-color: transparent;
+  width: 8px;
+  height: 8px;
 }
 
-/* Scrollbar Track (الخلفية) */
 ::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 20px;
+  background: #000000;
 }
 
-/* Scrollbar Thumb (المؤشّر) */
 ::-webkit-scrollbar-thumb {
-
-  background: url('./assets/lion.png') center/cover no-repeat;
-  border-radius: 50px;
-  border: 20px solid transparent; /* عشان الصورة تبين واضحة */
+  background: #2e260c;
+  border-radius: 4px;
 }
 
-/* لما تعمل Hover على الـ Thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background: url('./assets/lion.png') center/cover no-repeat;
-  filter: brightness(1.2);
+  background: #725c02;
 }
 
-/* إزالة الأسهم فوق وتحت */
-::-webkit-scrollbar-button {
-  display: none;
-}
-
-html, body {
-  cursor: url('/LionHand.png') , auto;
-}
-button, a, .pointer {
-  cursor: url('/LionHandPointer.png') , pointer;
-}

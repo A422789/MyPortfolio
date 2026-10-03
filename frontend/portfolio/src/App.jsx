@@ -18,10 +18,10 @@ function App() {
         <FloatingWhatsApp />
         <main>
           <div id="home"><Home /></div>
-          <div id="about"><About /></div>
-          <div id="skills"><Skills /></div>
           <div id="projects"><Projects /></div>
+          <div id="skills"><Skills /></div>
           <div id="certificate"><Certificate /></div>
+          <div id="about"><About /></div>
           <div id="contact"><Contact /></div>
         </main>
         <div id="footer"><Footer /></div>

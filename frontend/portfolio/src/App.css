@@ -24,14 +24,20 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-  border-radius: 10px;
-  transition: color 0.4s ease;
+  border-radius: 8px;
+  transition: color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border-bottom: 2px solid transparent;
 }
 
-/*  تغيير لون النص عند الهوفر أو عندما يكون الرابط نشطًا */
-.multi-layer-link:hover,
+/* تغيير لون النص عند الهوفر وعند النشاط */
+.multi-layer-link:hover {
+  color: #f2de8c;
+}
+
 .multi-layer-link.activeLink {
-  color: #948a62e9;
+  color: #f2de8c;
+  border-bottom: 2px solid #cea605;
+  box-shadow: 0 4px 14px -2px rgba(206, 166, 5, 0.45);
 }
 
 .multi-layer-link::before,
@@ -46,14 +52,12 @@
   background-repeat: no-repeat;
   background-position: 0 0;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out, transform 2s ease-out;
+  transition: opacity 0.4s ease-in-out;
 }
 
-/*  تفعيل الأنيميشن عند الهوفر أو عندما يكون الرابط نشطًا */
+/* تفعيل الأنيميشن عند الهوفر فقط */
 .multi-layer-link:hover::before,
-.multi-layer-link.activeLink::before,
-.multi-layer-link:hover::after,
-.multi-layer-link.activeLink::after {
+.multi-layer-link:hover::after {
   opacity: 1;
   animation: rotate-gold 3s linear infinite;
 }
@@ -79,7 +83,6 @@
     #FFD700 60%,
     #110f09 64%
   );
-  
 }
 
 .multi-layer-link::after {
@@ -96,9 +99,7 @@
   animation-delay: -0.2s;
 }
 
-/*  تغيير شفافية الطبقة الثانية عند الهوفر أو عندما يكون الرابط نشطًا */
-.multi-layer-link:hover::after,
-.multi-layer-link.activeLink::after {
+.multi-layer-link:hover::after {
   opacity: 0.6;
 }
 
