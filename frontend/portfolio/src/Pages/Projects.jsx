@@ -70,7 +70,7 @@ const ProjectCard = ({ project, onOpenCaseStudy }) => {
         <div className="w-full h-52 overflow-hidden rounded-2xl bg-black/60 border border-white/5 mb-5 relative">
           {image ? (
             <img 
-              src={optimizeCloudinaryUrl(image, { width: 700 })} 
+              src={optimizeCloudinaryUrl(image, { width: 500 })} 
               alt={title} 
               loading="lazy"
               decoding="async"
@@ -115,6 +115,7 @@ const ProjectCard = ({ project, onOpenCaseStudy }) => {
             href={liveLink}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Live Demo for ${title}`}
             className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#cea605]/15 hover:bg-[#cea605] text-[#f2de8c] hover:text-black border border-[#cea605]/40 text-xs font-normal transition-all duration-300"
           >
             Live Demo ↗
@@ -126,6 +127,7 @@ const ProjectCard = ({ project, onOpenCaseStudy }) => {
             href={sourceLink}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Source Code for ${title}`}
             className="text-xs font-light text-[#b3b3b3] hover:text-[#f2de8c] transition-colors"
           >
             Source Code ↗

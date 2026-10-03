@@ -9,6 +9,11 @@ import { certificationsData } from '../content/certifications';
 const PdfThumbnail = lazy(() => import('../Components/PdfThumbnail'));
 
 const CertificateCard = ({ image, title, issuer, completionDate, skills = [], verifyLink }) => {
+  const { ref: cardRef, inView: cardInView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -37,6 +42,7 @@ const CertificateCard = ({ image, title, issuer, completionDate, skills = [], ve
 
   return (
     <motion.div
+      ref={cardRef}
       style={{
         rotateX,
         rotateY,
@@ -56,12 +62,23 @@ const CertificateCard = ({ image, title, issuer, completionDate, skills = [], ve
           )}
 
           {isPdf ? (
-            <Suspense fallback={<div className="flex items-center justify-center h-full text-xs text-[#cea605]">Loading Preview...</div>}>
-              <PdfThumbnail file={image} />
-            </Suspense>
+            cardInView ? (
+              <Suspense fallback={<div className="flex items-center justify-center h-full text-xs text-[#cea605]">Loading Preview...</div>}>
+                <PdfThumbnail file={image} />
+              </Suspense>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full gap-2 text-center px-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#cea605]/10 border border-[#cea605]/30 flex items-center justify-center text-[#f2de8c]">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <span className="text-xs font-mono text-[#a3a3a3]">Official Verified Credential</span>
+              </div>
+            )
           ) : image ? (
             <img 
-              src={optimizeCloudinaryUrl(image, { width: 700 })} 
+              src={optimizeCloudinaryUrl(image, { width: 500 })} 
               alt={title} 
               loading="lazy"
               decoding="async"
@@ -109,6 +126,7 @@ const CertificateCard = ({ image, title, issuer, completionDate, skills = [], ve
             href={verifyLink}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Verify official credential for ${title}`}
             className="inline-flex items-center gap-1.5 text-xs font-normal text-[#cea605] hover:text-[#f2de8c] transition-colors"
           >
             Verify Official Credential ↗

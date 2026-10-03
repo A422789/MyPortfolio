@@ -4,8 +4,8 @@
   "description": "Full-stack developer portfolio showcasing MERN projects, skills, and certifications.",
   "version": "1.0.0",
   "provider": {
-    "name": "Ahmad Ayyad",
-    "url": "https://my-protofoilo-rtte.vercel.app"
+    "name": "Ahmed Ayyad",
+    "url": "https://my-portfolio-rtte.vercel.app"
   },
   "resources": [
     {

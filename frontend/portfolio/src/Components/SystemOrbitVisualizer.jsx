@@ -274,9 +274,9 @@ const SystemOrbitVisualizer = () => {
               </span>
             </div>
 
-            <h4 className="text-sm font-normal text-white mb-1">
+            <p className="text-sm font-medium text-white mb-1">
               {activeNode.name}
-            </h4>
+            </p>
             <p className="text-xs text-[#a3a3a3] font-light leading-relaxed line-clamp-2">
               {activeNode.description}
             </p>
