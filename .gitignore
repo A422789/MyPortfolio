@@ -25,3 +25,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# AI Agents, Skills & Local Planning Docs
+.agents/
+.agent/
+skills-lock.json
+AI- Mentor-DB/
+PROJECT_STRUCTURE_REPORT.md
