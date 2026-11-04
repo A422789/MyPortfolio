@@ -1,0 +1,377 @@
+export const projectsData = [
+  // ============================================================================
+  // CATEGORY 1: FULL-STACK & BACKEND SYSTEMS (Top 3 Flagships + GiftLink + K8s)
+  // ============================================================================
+  {
+    _id: 'he-skincare',
+    slug: 'he-skincare',
+    category: 'fullstack',
+    badge: 'Flagship Full-Stack · Storefront + Admin CMS',
+    title: 'HE Skincare — Bilingual E-Commerce & Headless Admin CMS',
+    description:
+      'A unified luxury e-commerce ecosystem built with a bilingual (Arabic/English) customer storefront, an executive Headless Admin CMS, a Node.js/Express & MongoDB REST API, TTL token blacklisting, automated WhatsApp order alerts, and a read-only Demo Sandbox.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1786234794/portfolio/projects/1786234793366-788351808_wzbwiw.jpg',
+    },
+    secondaryImage: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1786236859/portfolio/projects/1786236857496-215232632_rjidht.jpg',
+    },
+    techStack: [
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'Mongoose',
+      'React.js',
+      'JWT & Sessions',
+      'Tailwind CSS',
+      'WhatsApp Web.js',
+      'Docker',
+      'Railway',
+      'Jest & Supertest',
+      'Vitest & Cypress',
+    ],
+    liveLink: 'https://skin-care-react-project.vercel.app',
+    liveLinkLabel: 'Storefront ↗',
+    secondaryLiveLink: 'https://skin-care-react-project-h8cw.vercel.app',
+    secondaryLiveLinkLabel: 'Admin CMS ↗',
+    repoLink: 'https://github.com/A422789/SkinCareReactProject',
+    featured: true,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'project-management-tool',
+    slug: 'project-management',
+    category: 'fullstack',
+    badge: 'Flagship Full-Stack · SaaS & Security',
+    title: 'Collaborative Project Management Tool',
+    description:
+      'A multi-workspace project and task collaboration engine featuring short-lived JWT access tokens, HTTP-only session refresh rotation via Axios interceptors, server-side RBAC, relational Mongoose cleanup, optimistic UI updates, and Docker deployment.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1786235781/portfolio/projects/1786235780794-549828611_oab3zl.jpg',
+    },
+    techStack: [
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'Mongoose',
+      'React.js',
+      'Socket.io',
+      'HTTP-Only Sessions',
+      'RBAC',
+      'Docker',
+      'Railway',
+      'Jest & Supertest',
+      'Vitest & Cypress',
+    ],
+    liveLink: 'https://project-management-tool-mocha.vercel.app/',
+    liveLinkLabel: 'Live App ↗',
+    repoLink: 'https://github.com/A422789/Project-Management-Tool',
+    featured: true,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'neoteric-cms',
+    slug: 'neoteric-cms',
+    category: 'fullstack',
+    badge: 'Flagship Full-Stack · Public Portal + Admin CMS',
+    title: 'Neoteric Technologies — Corporate Web Platform & Admin CMS',
+    description:
+      'A full-stack company web platform and 6-module content management system built with Node.js, Express.js v5, MongoDB Atlas, in-memory caching (node-cache), Nodemailer, and a dual Vanilla JS Public Website + Chart.js Admin Dashboard.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1786237856/portfolio/projects/1786237855572-194685751_vqk3jw.jpg',
+    },
+    techStack: [
+      'Node.js',
+      'Express.js v5',
+      'MongoDB Atlas',
+      'Mongoose',
+      'JWT & RBAC',
+      'node-cache',
+      'Nodemailer',
+      'Vanilla JS',
+      'Chart.js',
+    ],
+    liveLink: 'https://full-stack-project-eight-ruby.vercel.app/pages/home.html',
+    liveLinkLabel: 'Public Site ↗',
+    secondaryLiveLink: 'https://full-stack-project-eight-ruby.vercel.app/dashboard/dashboard-overview.html',
+    secondaryLiveLinkLabel: 'Admin CMS ↗',
+    repoLink: 'https://github.com/A422789/FullStackProject',
+    featured: true,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'giftlink-ibm-capstone',
+    slug: 'giftlink',
+    category: 'fullstack',
+    badge: 'IBM Full-Stack Capstone · MERN & Containers',
+    title: 'GiftLink — Full-Stack Gift Sharing & Search Platform',
+    description:
+      'Cloud-native MERN capstone application enabling community members to list, filter, and search household items via a dynamic multi-criteria MongoDB query builder, JWT authentication, sentiment analysis, and Docker containerization.',
+    image: {
+      url: '', // TODO: Paste GiftLink screenshot URL here when ready
+    },
+    techStack: [
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'React.js',
+      'JWT Auth',
+      'REST Search Engine',
+      'Sentiment Analysis',
+      'Docker',
+    ],
+    liveLink: '', // TODO: Paste GiftLink live URL if deployed
+    repoLink: 'https://github.com/A422789', // TODO: Paste exact GiftLink repository URL
+    featured: false,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'kubernetes-deployment',
+    slug: 'kubernetes-deployment',
+    category: 'fullstack',
+    badge: 'Cloud & DevOps · Containers & Orchestration',
+    title: 'Cloud-Native Containerization & Kubernetes Deployment',
+    description:
+      'Containerizing and orchestrating Node.js backend services using multi-stage Dockerfiles, declarative Kubernetes Deployment and Service YAML manifests, horizontal pod scaling, and OpenShift cloud workflows.',
+    image: {
+      url: '', // TODO: Paste Kubernetes project screenshot or diagram URL here when ready
+    },
+    techStack: [
+      'Docker',
+      'Kubernetes (K8s)',
+      'OpenShift',
+      'Node.js',
+      'YAML Manifests',
+      'Container Registry',
+    ],
+    liveLink: '',
+    repoLink: 'https://github.com/A422789', // TODO: Paste exact KubernetesProject repository URL
+    featured: false,
+    hasCaseStudy: true,
+  },
+
+  // ============================================================================
+  // CATEGORY 2: ACADEMIC CS FOUNDATIONS (DSA & OOP)
+  // ============================================================================
+  {
+    _id: 'cpp-hospital-dsa',
+    slug: 'cpp-hospital-system',
+    category: 'academic',
+    badge: 'Academic CS · Data Structures & Algorithms',
+    title: 'Hospital Management System — C++ DSA Engine',
+    description:
+      'University Data Structures & Algorithms system engineered in C++ using custom pointer-based Linked Lists for patient records, severity-ordered Priority Queues for emergency triage, FIFO outpatient queues, and file persistence.',
+    image: {
+      url: '', // TODO: Paste C++ Hospital Management screenshot URL here if desired
+    },
+    techStack: [
+      'C++',
+      'Data Structures & Algorithms',
+      'Linked Lists',
+      'Priority & FIFO Queues',
+      'Search & Sorting',
+      'File I/O',
+    ],
+    liveLink: '',
+    repoLink: 'https://github.com/A422789', // TODO: Paste exact C++ Hospital Management repository URL
+    featured: false,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'java-oop-system',
+    slug: 'java-oop-system',
+    category: 'academic',
+    badge: 'Academic CS · Object-Oriented Programming',
+    title: 'Object-Oriented Software System — Java OOP Architecture',
+    description:
+      'University Object-Oriented Programming system built in Java demonstrating strict state encapsulation, abstract base classes, interface contracts, runtime polymorphism, custom exception handling, and modular package design.',
+    image: {
+      url: '', // TODO: Paste Java OOP screenshot or UML diagram URL here if desired
+    },
+    techStack: [
+      'Java',
+      'Object-Oriented Programming',
+      'Polymorphism & Inheritance',
+      'Abstract Classes & Interfaces',
+      'Exception Handling',
+    ],
+    liveLink: '',
+    repoLink: 'https://github.com/A422789', // TODO: Paste exact Java OOP repository URL
+    featured: false,
+    hasCaseStudy: true,
+  },
+
+  // ============================================================================
+  // CATEGORY 3: FRONTEND & CLOUD BAAS APPLICATIONS (Ordered by Engineering Depth)
+  // ============================================================================
+  {
+    _id: 'ecommerce-unified',
+    slug: 'ecommerce-platform',
+    category: 'frontend',
+    badge: 'Unified Ecosystem · Storefront + Cloud Admin Panel',
+    title: 'Full-Feature E-Commerce Ecosystem — Storefront & Admin Panel',
+    description:
+      'A unified two-application e-commerce platform pairing a responsive React customer storefront (dynamic catalog & persistent guest cart) with a real-time Firebase Firestore & Cloudinary Admin Panel for full product CRUD and theme persistence.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1786234113/portfolio/projects/1786234112450-830358886_sho89t.jpg',
+    },
+    secondaryImage: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571017/portfolio/projects/AdminPanal_c7wn9n.png',
+    },
+    techStack: [
+      'React',
+      'Tailwind CSS',
+      'Bootstrap',
+      'Firebase Firestore',
+      'Cloudinary CDN',
+      'Protected Routes',
+      'Local Storage',
+    ],
+    liveLink: 'https://a422789.github.io/e-commers/',
+    liveLinkLabel: 'Storefront ↗',
+    secondaryLiveLink: 'https://a422789.github.io/AdminPanal/',
+    secondaryLiveLinkLabel: 'Admin Panel ↗',
+    repoLink: 'https://github.com/A422789/e-commers/',
+    secondaryRepoLink: 'https://github.com/A422789/AdminPanal/',
+    featured: false,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'enterprise-dashboard',
+    slug: 'enterprise-dashboard',
+    category: 'frontend',
+    badge: 'React Architecture · Data Visualization',
+    title: 'Enterprise Admin Dashboard',
+    description:
+      'An enterprise-grade analytics dashboard built with React, Material UI (MUI), and Nivo D3 Charts featuring interactive data grids, calendar scheduling, a Kanban board, and unified Dark/Light theme state via React Context API.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1786234149/portfolio/projects/1786234148050-504130514_oxz1ij.jpg',
+    },
+    techStack: ['React', 'Material UI (MUI)', 'Nivo Charts', 'Context API', 'DataGrid & Kanban'],
+    liveLink: 'https://a422789.github.io/Advance_DashBoard/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/Advance_DashBoard',
+    featured: false,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'chat-boot',
+    slug: 'chat-boot',
+    category: 'frontend',
+    badge: 'React & AI API · Conversational UI',
+    title: 'Chat-Boot — Gemini AI Conversational Interface',
+    description:
+      'A responsive conversational AI interface built with React and Tailwind CSS, powered by the Google Gemini Pro API with asynchronous prompt dispatch, multi-turn history, and resilient error recovery.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571014/portfolio/projects/ChatGBT_ofalu1.jpg',
+    },
+    techStack: ['React', 'Tailwind CSS', 'Google Gemini API', 'Async State'],
+    liveLink: 'https://a422789.github.io/chat-boot/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/chat-boot',
+    featured: false,
+    hasCaseStudy: true,
+  },
+  {
+    _id: 'react-todo',
+    category: 'frontend',
+    badge: 'React Fundamentals · State & Hooks',
+    title: 'React To-Do List App',
+    description:
+      'A clean task management application built with React Hooks (useState, useEffect) featuring task creation, deletion, completion toggling, filtering, and automatic persistence via Local Storage.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571027/portfolio/projects/TodoApp_nu9dwn.png',
+    },
+    techStack: ['React', 'React Hooks', 'Local Storage'],
+    liveLink: 'https://a422789.github.io/Todo-list_project/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/Todo-list_project/',
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    _id: 'products-manager',
+    category: 'frontend',
+    badge: 'JavaScript Logic · DOM & CRUDS',
+    title: 'Products Manager — CRUDS System',
+    description:
+      'A complete CRUDS inventory manager built with Vanilla JavaScript supporting real-time tax/total calculation, bulk record creation, update mode, live search filtering, and Local Storage persistence.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571022/portfolio/projects/ProjectManager_zvopmw.png',
+    },
+    techStack: ['JavaScript (ES6+)', 'DOM Manipulation', 'Local Storage', 'HTML5 & CSS3'],
+    liveLink: 'https://a422789.github.io/ProductsManager/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/ProductsManager/',
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    _id: 'corporate-website',
+    category: 'frontend',
+    badge: 'Responsive UI · Bootstrap 5',
+    title: 'Corporate Company Website',
+    description:
+      'A responsive multi-section corporate landing page built with HTML5, custom CSS3, and Bootstrap 5 featuring a hero carousel, service showcase, portfolio gallery, team directory, and contact section.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571020/portfolio/projects/Company_tlkh55.png',
+    },
+    techStack: ['HTML5', 'CSS3', 'Bootstrap 5'],
+    liveLink: 'https://a422789.github.io/Company.website-project/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/Company.website-project/',
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    _id: 'coffee-corner',
+    category: 'frontend',
+    badge: 'Interactive UI · Bootstrap & JS',
+    title: 'The Coffee Corner — Café Website',
+    description:
+      'A responsive café web experience built with HTML5, CSS3, Bootstrap 5, and JavaScript featuring interactive menu sections, smooth scrolling navigation, and mobile-first layout styling.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571023/portfolio/projects/Coffee_ba0anc.png',
+    },
+    techStack: ['HTML5', 'CSS3', 'Bootstrap 5', 'JavaScript'],
+    liveLink: 'https://a422789.github.io/Coffee.shope-project/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/Coffee.shope-project/',
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    _id: 'malware-guide',
+    category: 'frontend',
+    badge: 'CSS Visuals · Responsive Layout',
+    title: 'Malware: A Cybersecurity Guide',
+    description:
+      'An educational cybersecurity web guide built with semantic HTML5 and custom CSS3, explaining malware classifications, threat vectors, and defensive practices through interactive cards and animations.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571018/portfolio/projects/MalWare_cyjcda.png',
+    },
+    techStack: ['HTML5', 'CSS3', 'CSS Animations'],
+    liveLink: 'https://a422789.github.io/Malware-project/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/Malware-project/',
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    _id: 'login-page',
+    category: 'frontend',
+    badge: 'UI Component · Authentication Form',
+    title: 'Modern Responsive Login Page',
+    description:
+      'A clean authentication interface built with HTML5, Flexbox CSS3, and JavaScript featuring password visibility toggling, client-side input cues, and responsive form alignment.',
+    image: {
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571025/portfolio/projects/LoginPage_k05rbo.png',
+    },
+    techStack: ['HTML5', 'CSS3', 'JavaScript'],
+    liveLink: 'https://a422789.github.io/Advance.Login.page-project/',
+    liveLinkLabel: 'Live Demo ↗',
+    repoLink: 'https://github.com/A422789/Advance.Login.page-project/',
+    featured: false,
+    hasCaseStudy: false,
+  },
+];

@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-.perspective-container {
-  perspective: 800px;
-}
-
 .logo {
   transform-style: preserve-3d;
   animation: show-from-side 2s ease-out forwards;
@@ -29,7 +25,6 @@
   border-bottom: 2px solid transparent;
 }
 
-/* تغيير لون النص عند الهوفر وعند النشاط */
 .multi-layer-link:hover {
   color: #f2de8c;
 }
@@ -55,7 +50,6 @@
   transition: opacity 0.4s ease-in-out;
 }
 
-/* تفعيل الأنيميشن عند الهوفر فقط */
 .multi-layer-link:hover::before,
 .multi-layer-link:hover::after {
   opacity: 1;
@@ -103,91 +97,49 @@
   opacity: 0.6;
 }
 
-
-
-/* src/index.css */
-
-/* ... (Your existing styles) ... */
-
-/* ---------------------------------- */
-/*   Project Button Styles            */
-/* ---------------------------------- */
-.project-button {
-  @apply 
-    bg-transparent
-    text-[#cea605]
-    font-semibold
-    text-sm
-    tracking-wider
-    py-3 px-6
-    border-2
-    border-[#cea605]
-    overflow-hidden
-    cursor-pointer
-    transition-all
-    duration-300;
+/* Hire Me Button Hover Animations */
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+  to {
+    transform: translateY(-0.1em);
+  }
 }
 
-.project-button:hover {
-  @apply 
-    bg-[#f2de8c]
-    text-black
-    shadow-[0_0_25px_10px_rgba(206,166,5,0.5)];
-    
+.hire-me-btn {
+  transition: all 0.2s;
 }
 
+.hire-me-btn span {
+  transition: all 0.3s ease-in-out;
+}
 
-/* src/index.css */
+.hire-me-btn svg {
+  transition: transform 0.3s ease-in-out;
+}
 
-/* ... (Your existing styles for project-button, etc.) ... */
+.hire-me-btn:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
 
-/* ---------------------------------- */
-/*   Contact Form Input Styles        */
-/* ---------------------------------- */
+.hire-me-btn:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.hire-me-btn:hover span {
+  transform: translateX(5em);
+}
+
+.hire-me-btn:active {
+  transform: scale(0.95);
+}
+
+/* Contact Form Input Styles */
 .contact-input {
-  @apply 
-    w-full 
-    bg-transparent 
-    border 
-    border-[#cea605] 
-    text-white 
-    text-lg
-    p-3 
-    rounded-md 
-    transition-all 
-    duration-300 
-    ease-in-out
-    focus:outline-none; /* إزالة الـ outline الافتراضي */
+  @apply w-full bg-transparent border border-[#cea605] text-white text-lg p-3 rounded-md transition-all duration-300 ease-in-out focus:outline-none;
 }
 
-/* التأثير عند التركيز (Focus) */
 .contact-input:focus {
-  @apply 
-    ring-2 /* يعادل outline بـ 2px */
-    ring-[#b49106] /* لون الـ outline الذهبي الأغمق */
-    shadow-[0_0_20px_3px_rgba(206,166,5,0.4)]; /* الظل المحيطي الكامل */
-}
-
-/* ---------------------------------- */
-/*   Contact Form Send Button         */
-/* ---------------------------------- */
-.contact-send-button {
-  @apply 
-    bg-transparent
-    hover:bg-[#f2de8c]
-    text-[#cea605]
-    hover:text-black
-    font-semibold
-    text-xl
-    tracking-wider
-    py-3 px-6
-    border-2
-    border-[#cea605]
-    rounded-2xl /* بوردر ريديوس أكبر كما طلبت */
-    overflow-hidden
-    cursor-pointer
-    transition-all
-    duration-300
-    shadow-[0_0_15px_7px_rgba(206,166,5,0.3)]
-    hover:shadow-[0_0_25px_10px_rgba(206,166,5,0.5)];
+  @apply ring-2 ring-[#b49106] shadow-[0_0_20px_3px_rgba(206,166,5,0.4)];
 }
