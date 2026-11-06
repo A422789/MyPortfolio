@@ -1,10 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { optimizeCloudinaryUrl } from '../../utils/cloudinary';
+import PortfolioImage from '../ui/PortfolioImage';
 import ActionButton from '../ui/ActionButton';
 
 const ArchiveProjectCard = ({ project, index = 0 }) => {
   const image = project.image?.url;
+  const containsImage = project.image?.fit === 'contain';
   const secondaryImage = project.secondaryImage?.url;
   const title = project.title;
   const overview = project.description;
@@ -142,22 +142,22 @@ const ArchiveProjectCard = ({ project, index = 0 }) => {
 
       {/* Right Column: High-Resolution Visual Showcase */}
       <div className="w-full lg:w-[42%] shrink-0 flex items-center">
-        <div className="w-full h-60 sm:h-72 lg:h-full min-h-[250px] overflow-hidden rounded-2xl bg-black/80 border border-white/10 relative">
+        <div className={`w-full ${containsImage ? 'h-60 sm:h-72 lg:h-80' : 'h-60 sm:h-72 lg:h-full'} min-h-[250px] overflow-hidden rounded-2xl bg-black/80 border border-white/10 relative`} style={{ backgroundColor: project.image?.background }}>
           {image ? (
             <>
-              <img
-                src={optimizeCloudinaryUrl(image, { width: 800 })}
+              <PortfolioImage
+                src={image}
                 alt={title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className={`w-full h-full ${containsImage ? 'object-contain p-3 sm:p-4' : 'object-cover transition-transform duration-500 group-hover:scale-105'}`}
               />
 
               {/* Dual-Interface Overlapping Secondary Preview (Storefront + Admin CMS) */}
               {secondaryImage && (
                 <div className="absolute bottom-3 right-3 w-[48%] h-[46%] rounded-xl overflow-hidden border-2 border-[#cea605]/80 shadow-2xl shadow-black bg-black transition-transform duration-500 group-hover:scale-105">
-                  <img
-                    src={optimizeCloudinaryUrl(secondaryImage, { width: 450 })}
+                  <PortfolioImage
+                    src={secondaryImage}
                     alt={`${title} Admin Dashboard`}
                     loading="lazy"
                     decoding="async"

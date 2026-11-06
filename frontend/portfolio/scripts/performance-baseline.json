@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-06T17:10:34.679Z",
+  "kind": "pre-implementation production build; lab and field timings not measured",
+  "files": [
+    {
+      "file": "CvPreviewDialog-CfFJCiRh.js",
+      "bytes": 36736,
+      "gzipBytes": 13385
+    },
+    {
+      "file": "index-B_n1tvHD.js",
+      "bytes": 465365,
+      "gzipBytes": 144757
+    },
+    {
+      "file": "index-C0i2b_3N.css",
+      "bytes": 71680,
+      "gzipBytes": 11615
+    },
+    {
+      "file": "pdf.worker.min-qwK7q_zL.mjs",
+      "bytes": 1046214,
+      "gzipBytes": 289897
+    },
+    {
+      "file": "PdfThumbnail-vy4FhHuz.js",
+      "bytes": 423912,
+      "gzipBytes": 125493
+    },
+    {
+      "file": "vendor-form-D6KkNkMl.js",
+      "bytes": 116186,
+      "gzipBytes": 36058
+    },
+    {
+      "file": "vendor-motion-D9ZTjkdQ.js",
+      "bytes": 117623,
+      "gzipBytes": 39006
+    },
+    {
+      "file": "vendor-react-8cAX5sOZ.js",
+      "bytes": 44173,
+      "gzipBytes": 15874
+    }
+  ]
+}

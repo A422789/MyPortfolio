@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 const NODES_DATA = [
@@ -6,7 +6,6 @@ const NODES_DATA = [
     id: 'gateway',
     name: 'Node.js & Express REST Core',
     type: 'Backend Runtime',
-    status: 'v20+ LTS',
     tag: 'REST / MVC Architecture',
     description: 'Event-driven Node.js backend executing stateless Express REST APIs, middleware validation, and secure MongoDB data pipelines.',
     metric: 'Stateless API Layer',
@@ -22,7 +21,6 @@ const NODES_DATA = [
     id: 'client',
     name: 'React 19 SPA Client',
     type: 'Frontend Tier',
-    status: 'Connected',
     tag: 'React Router / Redux',
     description: 'Responsive single-page and multi-route interfaces with structured state management, dynamic routing, and Framer Motion interactions.',
     metric: 'Component Architecture',
@@ -40,7 +38,6 @@ const NODES_DATA = [
     id: 'database',
     name: 'MongoDB Atlas',
     type: 'Data Tier',
-    status: 'Document Store',
     tag: 'Mongoose ODM',
     description: 'Document database with strict Mongoose schema validation, compound indexing, and relational reference modeling.',
     metric: 'Indexed Pipelines',
@@ -55,7 +52,6 @@ const NODES_DATA = [
     id: 'security',
     name: 'JWT & RBAC Security',
     type: 'Auth Guard',
-    status: 'Enforced',
     tag: 'HTTP-Only Cookies',
     description: 'Role-based access control, cryptographic token verification, and secure HTTP-only cookie refresh rotation.',
     metric: 'Access + Refresh Rotation',
@@ -71,7 +67,6 @@ const NODES_DATA = [
     id: 'cloud',
     name: 'Cloud & Containers',
     type: 'Infrastructure',
-    status: 'Operational',
     tag: 'Docker / Kubernetes',
     description: 'Containerized service deployments with Docker and Kubernetes, automated GitHub Actions CI/CD pipelines, and cloud media delivery.',
     metric: 'CI/CD & Containers',

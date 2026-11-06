@@ -1,10 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { optimizeCloudinaryUrl } from '../../utils/cloudinary';
+import PortfolioImage from '../ui/PortfolioImage';
 import ActionButton from '../ui/ActionButton';
 
 const ProjectCard = ({ project }) => {
   const image = project.image?.url;
+  const containsImage = project.image?.fit === 'contain';
   const title = project.title;
   const overview = project.description;
   const techStack = project.techStack || [];
@@ -40,14 +40,15 @@ const ProjectCard = ({ project }) => {
         </div>
 
         {/* Visual Preview Box */}
-        <div className="w-full h-52 overflow-hidden rounded-2xl bg-black/70 border border-white/10 mb-5 relative">
+        <div className="w-full h-52 overflow-hidden rounded-2xl bg-black/70 border border-white/10 mb-5 relative" style={{ backgroundColor: project.image?.background }}>
           {image ? (
-            <img
-              src={optimizeCloudinaryUrl(image, { width: 600 })}
+            <PortfolioImage
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              src={image}
               alt={title}
               loading="lazy"
               decoding="async"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className={`w-full h-full ${containsImage ? 'object-contain p-3' : 'object-cover transition-transform duration-500 group-hover:scale-105'}`}
             />
           ) : (
             <div className="w-full h-full flex flex-col justify-between p-5 bg-gradient-to-br from-[#171307] via-[#0a0a0a] to-black relative overflow-hidden">

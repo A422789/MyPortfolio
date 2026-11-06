@@ -1,27 +1,13 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import Reveal from '../components/ui/Reveal';
 import { TypeAnimation } from 'react-type-animation';
 import HireMeButton from '../components/ui/HireMeButton';
-import ActionButton from '../components/ui/ActionButton';
+import CvPreviewButton from '../components/ui/CvPreviewButton';
 import SocialIcons from '../components/ui/SocialIcons';
 import SystemOrbitVisualizer from '../components/ui/SystemOrbitVisualizer';
-import { useProfile } from '../context/ProfileContext';
 
 const HeroSection = () => {
-  const { profile } = useProfile();
-  const { ref } = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
-
-  const cvDownloadUrl = profile?.cvFile?.url
-    ? profile.cvFile.url.replace('/upload/', '/upload/fl_attachment/')
-    : 'https://res.cloudinary.com/djwqb3ibk/raw/upload/v1785893747/portfolio/cv/1785893746077-367252348_l74qia.pdf';
-
   return (
-    <motion.section
-      ref={ref}
+    <Reveal as="section"
       className="min-h-[85vh] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 py-12 mt-16 sm:mt-20"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -101,18 +87,7 @@ const HeroSection = () => {
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 pt-3">
           <HireMeButton />
-          <ActionButton
-            variant="outline-glow"
-            href={cvDownloadUrl}
-            download="Ahmed-Ayyad-CV.pdf"
-            external
-            className="font-normal text-base tracking-wide"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Download CV
-          </ActionButton>
+          <CvPreviewButton />
         </div>
 
         {/* Social Icons */}
@@ -122,15 +97,15 @@ const HeroSection = () => {
       </div>
 
       {/* Right Column: System Orbit Visualizer */}
-      <motion.div
+      <Reveal as="div"
         className="w-full lg:w-1/2 flex justify-center items-center relative"
         initial={{ opacity: 0, scale: 0.9, x: 40 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
       >
         <SystemOrbitVisualizer />
-      </motion.div>
-    </motion.section>
+      </Reveal>
+    </Reveal>
   );
 };
 

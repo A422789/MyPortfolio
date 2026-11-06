@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import Reveal from '../components/ui/Reveal';
+import { useState } from 'react';
 import { projectsData } from '../content/projectsData';
 import ArchiveProjectCard from '../components/cards/ArchiveProjectCard';
 import ActionButton from '../components/ui/ActionButton';
@@ -57,14 +57,14 @@ const ProjectsArchivePage = () => {
           <span className="text-xs font-mono uppercase tracking-widest text-[#cea605] block">
             COMPLETE ENGINEERING ARCHIVE & CASE STUDIES
           </span>
-          <motion.h1
+          <Reveal as="h1"
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-3xl sm:text-5xl font-light tracking-tight text-white"
           >
             Projects & Case Studies
-          </motion.h1>
+          </Reveal>
           <p className="text-sm sm:text-base text-[#a3a3a3] font-light max-w-2xl mx-auto leading-relaxed">
             Explore deep-dive architectural case studies for full-stack systems, cloud container deployments, interactive React applications, and university computer science foundations.
           </p>
@@ -81,7 +81,7 @@ const ProjectsArchivePage = () => {
                   className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                     isActive
                       ? 'bg-[#cea605] text-black font-medium shadow-[0_0_20px_rgba(206,166,5,0.4)]'
-                      : 'bg-white/[0.03] text-[#b3b3b3] hover:text-[#f2de8c] border border-white/10 hover:border-[#cea605]/40'
+                      : 'bg-transparent text-[#b3b3b3] hover:text-[#f2de8c] border border-white/10 hover:border-[#cea605]/40'
                   }`}
                 >
                   {tab.label}
@@ -123,14 +123,14 @@ const ProjectsArchivePage = () => {
 
                 <div className="flex flex-col gap-8">
                   {displayedProjects.map((project, index) => (
-                    <motion.div
+                    <Reveal as="div"
                       key={project._id || index}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: index * 0.05 }}
                     >
                       <ArchiveProjectCard project={project} index={index} />
-                    </motion.div>
+                    </Reveal>
                   ))}
                 </div>
 

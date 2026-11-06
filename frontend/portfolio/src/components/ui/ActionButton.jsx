@@ -1,15 +1,16 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const VARIANTS = {
   'outline-glow':
-    'bg-transparent hover:bg-[#f2de8c] text-[#cea605] hover:text-black border-2 border-[#cea605] rounded-2xl py-3 px-6 shadow-[0_0_15px_5px_rgba(206,166,5,0.25)] hover:shadow-[0_0_25px_10px_rgba(206,166,5,0.5)]',
+    'bg-transparent text-[#cea605] hover:text-[#f2de8c] border-2 border-[#cea605] rounded-2xl py-3 px-6 shadow-[0_0_15px_5px_rgba(206,166,5,0.25)] hover:shadow-[0_0_25px_10px_rgba(206,166,5,0.5)]',
+  'outline-muted':
+    'bg-transparent text-[#c4b27c] hover:text-[#d6c38b] border-2 border-[#725c02] hover:border-[#9b853f] rounded-2xl py-3 px-6 shadow-[0_0_14px_rgba(206,166,5,0.2)] hover:shadow-[0_0_22px_rgba(206,166,5,0.35)]',
   'solid-gold':
     'bg-[#cea605] hover:bg-[#f2de8c] text-black rounded-xl px-6 py-2.5 text-sm font-normal',
   subtle:
-    'bg-[#cea605]/15 hover:bg-[#cea605] text-[#f2de8c] hover:text-black border border-[#cea605]/40 text-xs font-normal shadow-sm',
+    'bg-transparent text-[#f2de8c] border border-[#cea605]/40 hover:border-[#cea605] hover:shadow-[0_0_20px_rgba(206,166,5,0.25)] text-xs font-normal shadow-sm',
   glass:
-    'bg-white/5 hover:bg-white/10 text-white border border-white/15 rounded-xl px-6 py-2.5 text-sm font-normal',
+    'bg-transparent text-white border border-white/15 hover:border-white/50 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] rounded-xl px-6 py-2.5 text-sm font-normal',
 };
 
 const ActionButton = ({

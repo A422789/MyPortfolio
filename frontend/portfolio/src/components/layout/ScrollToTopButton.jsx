@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ScrollToTopButton = () => {
@@ -30,7 +30,7 @@ const ScrollToTopButton = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 16 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-12 h-12 rounded-full backdrop-blur-xl border border-[#cea605]/40 hover:border-[#f2de8c] bg-black/80 hover:bg-[#cea605]/20 text-[#cea605] hover:text-[#f2de8c] shadow-lg shadow-[#cea605]/25 hover:shadow-[0_0_25px_rgba(242,222,140,0.45)] flex items-center justify-center transition-all duration-300 cursor-pointer group active:scale-95"
+          className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-12 h-12 rounded-full backdrop-blur-xl border border-[#cea605]/40 hover:border-[#f2de8c] bg-transparent text-[#cea605] hover:text-[#f2de8c] shadow-lg shadow-[#cea605]/25 hover:shadow-[0_0_25px_rgba(242,222,140,0.45)] flex items-center justify-center transition-all duration-300 cursor-pointer group active:scale-95"
         >
           <svg
             className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5"

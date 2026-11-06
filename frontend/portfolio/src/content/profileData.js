@@ -1,6 +1,6 @@
 export const profileData = {
   aboutImage: {
-    url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1783571009/portfolio/profile/AboutSec_bqpihy.png',
+    url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793982095/portfolio/profile/AboutSec_bqpihy.png',
   },
   // Update this URL whenever a new CV PDF is uploaded
   cvFile: {
@@ -14,5 +14,5 @@ export const profileData = {
   location: 'Islamabad, Pakistan',
   github: 'https://github.com/A422789',
   linkedin: 'https://www.linkedin.com/in/ahmad-ayyad-608293304/',
-  footerText: '© 2026 Ahmed Ayyad | All Rights Reserved',
+  footerText: `© ${new Date().getFullYear()} Ahmed Ayyad | All Rights Reserved`,
 };

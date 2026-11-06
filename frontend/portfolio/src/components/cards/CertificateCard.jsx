@@ -1,20 +1,8 @@
-import React, { lazy, Suspense } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { optimizeCloudinaryUrl } from '../../utils/cloudinary';
+import PortfolioImage from '../ui/PortfolioImage';
 
-const PdfThumbnail = lazy(() => import('../ui/PdfThumbnail'));
-
-const CertificateCard = ({ image, title, issuer, completionDate, skills = [], verifyLink }) => {
-  const { ref: cardRef, inView: cardInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
-
-  const isPdf = typeof image === 'string' && (image.toLowerCase().endsWith('.pdf') || image.includes('/raw/'));
-
+const CertificateCard = ({ image, title, issuer, completionDate, skills = [], verifyLink, description, reserveEmptyPreview = false }) => {
   return (
     <div
-      ref={cardRef}
       className="w-full bg-white/[0.03] rounded-3xl border border-[#725c02]/40 hover:border-[#cea605] backdrop-blur-2xl p-6 flex flex-col justify-between transition-all duration-300 group shadow-lg shadow-black/60 hover:shadow-[0_0_35px_rgba(206,166,5,0.25)] h-full"
     >
       <div>
@@ -25,29 +13,16 @@ const CertificateCard = ({ image, title, issuer, completionDate, skills = [], ve
             </span>
           )}
 
-          {isPdf ? (
-            cardInView ? (
-              <Suspense fallback={<div className="flex items-center justify-center h-full text-xs text-[#cea605]">Loading Preview...</div>}>
-                <PdfThumbnail file={image} />
-              </Suspense>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full gap-2 text-center px-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#cea605]/10 border border-[#cea605]/30 flex items-center justify-center text-[#f2de8c]">
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <span className="text-xs font-mono text-[#a3a3a3]">Official Verified Credential</span>
-              </div>
-            )
-          ) : image ? (
-            <img
-              src={optimizeCloudinaryUrl(image, { width: 500 })}
+          {image ? (
+            <PortfolioImage
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              src={image}
               alt={title}
               loading="lazy"
-              decoding="async"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
+          ) : reserveEmptyPreview ? (
+            <div className="w-full h-full" aria-label="Certificate preview reserved" />
           ) : (
             <div className="text-xs text-[#808080]">Document Preview</div>
           )}
@@ -56,6 +31,8 @@ const CertificateCard = ({ image, title, issuer, completionDate, skills = [], ve
         <h3 className="text-base sm:text-lg font-normal text-white group-hover:text-[#f2de8c] transition-colors mb-2">
           {title}
         </h3>
+
+        {description && <p className="text-base text-[#d4d4d4] leading-relaxed mb-4">{description}</p>}
 
         {completionDate && (
           <div className="flex items-center gap-1.5 text-xs text-[#a3a3a3] font-light mb-3">
@@ -81,9 +58,14 @@ const CertificateCard = ({ image, title, issuer, completionDate, skills = [], ve
       </div>
 
       <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
-        {verifyLink ? (
+        {/* Keep pending verification actions visible when a card reserves a document slot. */}
+        {verifyLink || reserveEmptyPreview ? (
           <a
-            href={verifyLink}
+            href={verifyLink || undefined}
+            role="link"
+            tabIndex={0}
+            aria-disabled={!verifyLink}
+            title={!verifyLink ? 'Verification link pending' : undefined}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Verify official credential for ${title}`}

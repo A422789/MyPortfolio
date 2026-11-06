@@ -1,4 +1,3 @@
-import React from 'react';
 import NavBar from '../components/layout/NavBar';
 import FloatingWhatsApp from '../components/layout/FloatingWhatsApp';
 import ScrollToTopButton from '../components/layout/ScrollToTopButton';

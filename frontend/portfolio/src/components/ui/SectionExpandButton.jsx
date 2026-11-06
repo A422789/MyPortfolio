@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SectionExpandButton = ({
   isExpanded,
   onToggle,
@@ -20,7 +18,7 @@ const SectionExpandButton = ({
       <button
         type="button"
         onClick={handleClick}
-        className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-white/[0.03] hover:bg-[#cea605]/15 border border-[#725c02]/50 hover:border-[#cea605] text-[#f2de8c] hover:text-white text-sm font-normal tracking-wide shadow-[0_0_20px_rgba(206,166,5,0.15)] hover:shadow-[0_0_30px_rgba(206,166,5,0.35)] transition-all duration-300 ease-out cursor-pointer active:scale-95"
+        className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-transparent border border-[#725c02]/50 hover:border-[#cea605] text-[#f2de8c] hover:text-white text-sm font-normal tracking-wide shadow-[0_0_20px_rgba(206,166,5,0.15)] hover:shadow-[0_0_30px_rgba(206,166,5,0.35)] transition-all duration-300 ease-out cursor-pointer active:scale-95"
       >
         <span>{isExpanded ? collapseLabel : expandLabel}</span>
         {!isExpanded && hiddenCount > 0 && (

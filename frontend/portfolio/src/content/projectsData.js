@@ -108,7 +108,7 @@ export const projectsData = [
     description:
       'Cloud-native MERN capstone application enabling community members to list, filter, and search household items via a dynamic multi-criteria MongoDB query builder, JWT authentication, sentiment analysis, and Docker containerization.',
     image: {
-      url: '', // TODO: Paste GiftLink screenshot URL here when ready
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793962003/34_lnjaz9.png',
     },
     techStack: [
       'Node.js',
@@ -120,8 +120,8 @@ export const projectsData = [
       'Sentiment Analysis',
       'Docker',
     ],
-    liveLink: '', // TODO: Paste GiftLink live URL if deployed
-    repoLink: 'https://github.com/A422789', // TODO: Paste exact GiftLink repository URL
+    liveLink: '', // The Coursera lab deployment was temporary; no current public live URL was supplied.
+    repoLink: 'https://github.com/A422789/fullstack-capstone-project',
     featured: false,
     hasCaseStudy: true,
   },
@@ -134,7 +134,8 @@ export const projectsData = [
     description:
       'Containerizing and orchestrating Node.js backend services using multi-stage Dockerfiles, declarative Kubernetes Deployment and Service YAML manifests, horizontal pod scaling, and OpenShift cloud workflows.',
     image: {
-      url: '', // TODO: Paste Kubernetes project screenshot or diagram URL here when ready
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793962670/32_ouj6rm.png',
+      fit: 'contain',
     },
     techStack: [
       'Docker',
@@ -145,7 +146,7 @@ export const projectsData = [
       'Container Registry',
     ],
     liveLink: '',
-    repoLink: 'https://github.com/A422789', // TODO: Paste exact KubernetesProject repository URL
+    repoLink: 'https://github.com/A422789/KubernetesProject',
     featured: false,
     hasCaseStudy: true,
   },
@@ -162,7 +163,8 @@ export const projectsData = [
     description:
       'University Data Structures & Algorithms system engineered in C++ using custom pointer-based Linked Lists for patient records, severity-ordered Priority Queues for emergency triage, FIFO outpatient queues, and file persistence.',
     image: {
-      url: '', // TODO: Paste C++ Hospital Management screenshot URL here if desired
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793962969/32_lx5goq.png',
+      fit: 'contain',
     },
     techStack: [
       'C++',
@@ -173,7 +175,7 @@ export const projectsData = [
       'File I/O',
     ],
     liveLink: '',
-    repoLink: 'https://github.com/A422789', // TODO: Paste exact C++ Hospital Management repository URL
+    repoLink: 'https://github.com/A422789/Hospital-Management-System',
     featured: false,
     hasCaseStudy: true,
   },
@@ -186,7 +188,9 @@ export const projectsData = [
     description:
       'University Object-Oriented Programming system built in Java demonstrating strict state encapsulation, abstract base classes, interface contracts, runtime polymorphism, custom exception handling, and modular package design.',
     image: {
-      url: '', // TODO: Paste Java OOP screenshot or UML diagram URL here if desired
+      url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793963221/OOP_project.drawio_mniynd.png',
+      fit: 'contain',
+      background: '#666666',
     },
     techStack: [
       'Java',
@@ -196,7 +200,7 @@ export const projectsData = [
       'Exception Handling',
     ],
     liveLink: '',
-    repoLink: 'https://github.com/A422789', // TODO: Paste exact Java OOP repository URL
+    repoLink: 'https://github.com/A422789/OOP_Project',
     featured: false,
     hasCaseStudy: true,
   },

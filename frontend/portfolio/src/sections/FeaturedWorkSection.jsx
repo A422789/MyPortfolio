@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import Reveal from '../components/ui/Reveal';
 import { useInView } from 'react-intersection-observer';
 import { projectsData } from '../content/projectsData';
 import ProjectCard from '../components/cards/ProjectCard';
@@ -24,14 +23,14 @@ const FeaturedWorkSection = () => {
           <span className="text-xs font-mono uppercase tracking-widest text-[#cea605]">
             FLAGSHIP ENGINEERING CASE STUDIES
           </span>
-          <motion.h2
+          <Reveal as="h2"
             initial={{ opacity: 0, y: -20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="text-3xl sm:text-5xl font-light tracking-tight text-white mt-2"
           >
             Selected Full-Stack Systems
-          </motion.h2>
+          </Reveal>
           <p className="text-sm text-[#a3a3a3] font-light mt-2 max-w-2xl mx-auto">
             Full-stack web systems engineered from the backend up — uniting customer storefronts, executive Admin CMS dashboards, RESTful APIs, authentication security, automated testing, and cloud deployment.
           </p>
@@ -39,7 +38,7 @@ const FeaturedWorkSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProjects.map((project, index) => (
-            <motion.div
+            <Reveal as="div"
               key={project._id || index}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -47,7 +46,7 @@ const FeaturedWorkSection = () => {
               className="h-full"
             >
               <ProjectCard project={project} />
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 

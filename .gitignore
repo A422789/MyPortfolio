@@ -28,7 +28,15 @@ dist-ssr
 
 # AI Agents, Skills & Local Planning Docs
 .agents/
+.vscode-test/
 .agent/
 skills-lock.json
 AI- Mentor-DB/
 PROJECT_STRUCTURE_REPORT.md
+
+# Reproducible build outputs and local audit artifacts
+frontend/portfolio/reports/
+frontend/portfolio/src/generated/
+frontend/portfolio/public/media/
+frontend/portfolio/public/social/
+frontend/portfolio/dist-tests/

@@ -1,10 +1,13 @@
-import React, { createContext, useContext } from 'react';
+import media from '../generated/media.json';
+import { createContext, useContext } from 'react';
 import { profileData } from '../content/profileData';
 
-const ProfileContext = createContext({ profile: profileData });
+const localProfile = { ...profileData, cvFile: { url: media[profileData.cvFile.url].src } };
+
+const ProfileContext = createContext({ profile: localProfile });
 
 export const ProfileProvider = ({ children }) => (
-  <ProfileContext.Provider value={{ profile: profileData }}>
+  <ProfileContext.Provider value={{ profile: localProfile }}>
     {children}
   </ProfileContext.Provider>
 );

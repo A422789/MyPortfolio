@@ -1,4 +1,3 @@
-import React from 'react';
 import HeroSection from '../sections/HeroSection';
 import FeaturedWorkSection from '../sections/FeaturedWorkSection';
 import ExperienceSection from '../sections/ExperienceSection';
@@ -11,21 +10,11 @@ const LandingPage = () => (
     <div id="home">
       <HeroSection />
     </div>
-    <div id="projects">
-      <FeaturedWorkSection />
-    </div>
-    <div id="experience">
-      <ExperienceSection />
-    </div>
-    <div id="skills">
-      <TechStackSection />
-    </div>
-    <div id="about">
-      <BackgroundSection />
-    </div>
-    <div id="contact">
-      <ContactSection />
-    </div>
+    <FeaturedWorkSection />
+    <ExperienceSection />
+    <TechStackSection />
+    <BackgroundSection />
+    <ContactSection />
   </>
 );
 

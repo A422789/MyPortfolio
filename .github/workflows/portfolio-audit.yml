@@ -1,0 +1,47 @@
+name: Portfolio SEO and performance
+
+on:
+  pull_request:
+    paths: ['frontend/portfolio/**', '.github/workflows/portfolio-audit.yml']
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: 'Optional deployment URL for HTTP checks (canonical stays production)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: frontend/portfolio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/portfolio/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run audit:seo
+      - run: npm test
+      - name: Check deployed HTTP behavior
+        if: ${{ inputs.deployment_url != '' }}
+        env:
+          DEPLOYMENT_URL: ${{ inputs.deployment_url }}
+        run: npm run audit:seo -- --base-url "$DEPLOYMENT_URL"
+      - name: Measure mobile and desktop lab performance
+        run: npm run audit:performance
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-audit-reports
+          path: frontend/portfolio/reports/
+          retention-days: 14

@@ -587,18 +587,18 @@ export const caseStudiesData = [
     role: 'Full-Stack Developer (Express API, MongoDB Queries, React Client, Auth & Containerization)',
     heroImages: {
       storefront: {
-        url: '', // TODO: Paste GiftLink screenshot URL here when ready
-        caption: 'GiftLink Catalog, Multi-Filter Search Engine & Item Details View',
+        url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793962003/34_lnjaz9.png',
+        caption: 'GiftLink Catalog — Gift Listings and Item Details Links',
       },
     },
     links: {
       storefront: {
         label: 'Live Deployment',
-        url: '', // TODO: Paste GiftLink live URL if deployed
+        url: '', // The Coursera lab deployment was temporary; no current public live URL was supplied.
       },
       repo: {
         label: 'GitHub Repository',
-        url: 'https://github.com/A422789', // TODO: Paste exact GiftLink repo URL (e.g., https://github.com/A422789/giftlink-project)
+        url: 'https://github.com/A422789/fullstack-capstone-project',
       },
     },
     demoCredentials: null,
@@ -680,14 +680,15 @@ export const caseStudiesData = [
     role: 'Backend & Cloud Infrastructure Developer',
     heroImages: {
       storefront: {
-        url: '', // TODO: Paste Kubernetes project screenshot or architecture diagram URL here when ready
-        caption: 'Docker Container Pipeline & Kubernetes Cluster Deployment Topology',
+        url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793962670/32_ouj6rm.png',
+        fit: 'contain',
+        caption: 'Kubernetes Cluster Architecture — Control Plane and Worker Nodes',
       },
     },
     links: {
       repo: {
         label: 'GitHub Repository',
-        url: 'https://github.com/A422789', // TODO: Paste exact KubernetesProject repo URL
+        url: 'https://github.com/A422789/KubernetesProject',
       },
     },
     demoCredentials: null,
@@ -936,14 +937,15 @@ export const caseStudiesData = [
     role: 'Software Engineering Student & Lead Developer',
     heroImages: {
       storefront: {
-        url: '', // TODO: Paste C++ Hospital Management screenshot URL here if desired
-        caption: 'C++ Data Structures Architecture: Patient Linked Lists & Emergency Triage Queues',
+        url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793962969/32_lx5goq.png',
+        fit: 'contain',
+        caption: 'ActionTracker.h — Pointer-Based Action Stack in the Hospital Management System',
       },
     },
     links: {
       repo: {
         label: 'GitHub Repository',
-        url: 'https://github.com/A422789', // TODO: Paste exact C++ Hospital Management repo URL
+        url: 'https://github.com/A422789/Hospital-Management-System',
       },
     },
     demoCredentials: null,
@@ -1018,14 +1020,16 @@ export const caseStudiesData = [
     role: 'Software Engineering Student & Lead Developer',
     heroImages: {
       storefront: {
-        url: '', // TODO: Paste Java OOP screenshot or UML diagram URL here if desired
-        caption: 'Java Class Hierarchy, Polymorphic Interfaces & Encapsulated Domain Model',
+        url: 'https://res.cloudinary.com/djwqb3ibk/image/upload/v1793963221/OOP_project.drawio_mniynd.png',
+        fit: 'contain',
+        background: '#666666',
+        caption: 'Java UML Diagram — Store, Order, User, Cart and Product Classes',
       },
     },
     links: {
       repo: {
         label: 'GitHub Repository',
-        url: 'https://github.com/A422789', // TODO: Paste exact Java OOP repo URL
+        url: 'https://github.com/A422789/OOP_Project',
       },
     },
     demoCredentials: null,

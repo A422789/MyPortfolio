@@ -1,5 +1,4 @@
-import React from 'react';
-import { socialLinksData } from '../../content/socialLinksData';
+﻿import { socialLinksData } from '../../content/socialLinksData';
 
 const SocialIcons = () => (
   <div className="flex gap-6 max-w-md">
@@ -9,30 +8,17 @@ const SocialIcons = () => (
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={
-          link.platform
-            ? `${link.platform} Profile`
-            : link.url?.includes('linkedin')
-              ? 'LinkedIn Profile'
-              : link.url?.includes('github')
-                ? 'GitHub Profile'
-                : link.url?.includes('wa.me')
-                  ? 'WhatsApp Contact'
-                  : 'Social Link'
-        }
-        className="p-5 w-fit rounded-full backdrop-blur-lg border border-[#cea605]/30 bg-liner-to-tr from-black/60 to-black/40 shadow-lg shadow-[#cea605]/30 hover:shadow-2xl hover:shadow-[#f2de8c]/40 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-[#f2de8c]/70 group relative overflow-hidden"
+        aria-label={`${link.platform} ${link._id === 'whatsapp' ? 'Contact' : 'Profile'}`}
+        className="p-5 rounded-full border border-white/15 bg-transparent hover:border-white/50 hover:shadow-[0_0_24px_rgba(255,255,255,0.15)] motion-safe:hover:scale-105 transition-[transform,border-color,box-shadow] duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#f2de8c]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
-        <div className="relative z-10">
-          <div
-            className="w-7 h-7 text-[#cea605] group-hover:text-[#f2de8c] transition-colors duration-300 [&_svg]:w-full [&_svg]:h-full"
-            dangerouslySetInnerHTML={{ __html: link.iconSvg }}
-          />
-        </div>
+        <span
+          style={{ color: link.brandColor }}
+          className={`block size-7 [&>svg]:size-full [&>svg]:fill-current ${link._id === 'github' ? '[&>svg]:overflow-visible [&>svg]:stroke-white/75 [&>svg]:stroke-[0.75px] [&>svg]:[paint-order:stroke]' : ''}`}
+          dangerouslySetInnerHTML={{ __html: link.iconSvg }}
+        />
       </a>
     ))}
   </div>
 );
 
 export default SocialIcons;
-

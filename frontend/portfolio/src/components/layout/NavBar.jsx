@@ -1,52 +1,91 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useProfile } from '../../context/ProfileContext';
 
 const NAV_ITEMS = [
-  { id: 'overview', name: 'Overview', href: '/#home' },
-  { id: 'case-studies', name: 'Case Studies', href: '/projects' },
-  { id: 'experience', name: 'Experience', href: '/credentials#experience' },
-  { id: 'tech-stack', name: 'Tech Stack', href: '/#skills' },
-  { id: 'background', name: 'Background', href: '/#about' },
-  { id: 'contact', name: 'Contact', href: '/#contact' },
+  { id: 'overview', name: 'Overview', href: '/#home', sectionId: 'home' },
+  { id: 'case-studies', name: 'Case Studies', href: '/projects', sectionId: 'projects' },
+  { id: 'experience', name: 'Experience', href: '/experience/ibm', sectionId: 'experience' },
+  { id: 'tech-stack', name: 'Tech Stack', href: '/#skills', sectionId: 'skills' },
+  { id: 'background', name: 'Background', href: '/#about', sectionId: 'about' },
+  { id: 'contact', name: 'Contact', href: '/#contact', sectionId: 'contact' },
 ];
 
 export default function NavBar() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const { pathname, hash } = useLocation();
+  const [scrollState, setScrollState] = useState({ hasScrolled: false, activeSectionId: 'overview' });
+  const headerRef = useRef(null);
+  const { pathname } = useLocation();
   const { profile } = useProfile();
 
   useEffect(() => {
-    const handleScroll = () => setScrollPosition(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const sections = pathname === '/'
+      ? NAV_ITEMS.map((item) => ({ id: item.id, element: document.getElementById(item.sectionId) }))
+        .filter((section) => section.element)
+      : [];
+    let frameId = null;
+
+    const updatePosition = () => {
+      frameId = null;
+      const hasScrolled = window.scrollY > 0;
+      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 80;
+      const activationLine = headerBottom + (window.innerHeight - headerBottom) * 0.25;
+      let activeSectionId = 'overview';
+
+      for (const section of sections) {
+        if (section.element.getBoundingClientRect().top <= activationLine) {
+          activeSectionId = section.id;
+        }
+      }
+
+      if (sections.length && hasScrolled && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+        activeSectionId = sections[sections.length - 1].id;
+      }
+
+      setScrollState((previous) => (
+        previous.hasScrolled === hasScrolled && previous.activeSectionId === activeSectionId
+          ? previous
+          : { hasScrolled, activeSectionId }
+      ));
+    };
+
+    const scheduleUpdate = () => {
+      if (frameId === null) frameId = requestAnimationFrame(updatePosition);
+    };
+
+    const resizeObserver = new ResizeObserver(scheduleUpdate);
+    sections.forEach((section) => resizeObserver.observe(section.element));
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    scheduleUpdate();
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      resizeObserver.disconnect();
+      if (frameId !== null) cancelAnimationFrame(frameId);
+    };
+  }, [pathname]);
 
   const getActiveId = () => {
     if (pathname.startsWith('/work') || pathname === '/projects') return 'case-studies';
-    if (pathname === '/credentials') {
-      return hash === '#experience' ? 'experience' : 'background';
-    }
-    if (hash === '#projects') return 'case-studies';
-    if (hash === '#experience') return 'experience';
-    if (hash === '#skills') return 'tech-stack';
-    if (hash === '#about') return 'background';
-    if (hash === '#contact') return 'contact';
+    if (pathname.startsWith('/experience/')) return 'experience';
+    if (pathname === '/') return scrollState.activeSectionId;
     return 'overview';
   };
 
   const activeId = getActiveId();
+  const activeLocation = pathname === '/' ? 'location' : 'page';
 
   const nameParts = (profile?.name || 'Ahmed Ayyad').split(' ');
   const firstName = nameParts[0]?.toUpperCase() || 'AHMED';
   const lastName = nameParts.slice(1).join(' ')?.toUpperCase() || 'AYYAD';
 
   return (
-    <Disclosure as="nav" className={`fixed w-full z-20 shadow-xl bg-black ${scrollPosition ? 'bg-transparent backdrop-blur-3xl' : ''}`}>
+    <Disclosure as="nav" className={`fixed w-full z-20 shadow-xl bg-black ${scrollState.hasScrolled ? 'bg-transparent backdrop-blur-3xl' : ''}`}>
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-20 items-center justify-between">
+        <div ref={headerRef} className="relative flex h-20 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-[#725c02]">
               <span className="absolute -inset-0.5" />
@@ -72,7 +111,7 @@ export default function NavBar() {
                     <Link
                       key={item.id}
                       to={item.href}
-                      aria-current={isActive ? 'page' : undefined}
+                      aria-current={isActive ? activeLocation : undefined}
                       className={`multi-layer-link whitespace-nowrap px-2.5 py-2 text-sm md:text-base lg:text-xl font-medium tracking-wider ${
                         isActive ? 'activeLink' : 'text-[#7d6400] hover:text-[#e3bc20]'
                       }`}
@@ -96,7 +135,7 @@ export default function NavBar() {
                 key={item.id}
                 as={Link}
                 to={item.href}
-                aria-current={isActive ? 'page' : undefined}
+                aria-current={isActive ? activeLocation : undefined}
                 className={`multi-layer-link text-center m-3 block rounded-md px-3 py-2 text-base font-medium ${
                   isActive ? 'activeLink' : 'text-[#7d6400] hover:text-[#e3bc20]'
                 }`}

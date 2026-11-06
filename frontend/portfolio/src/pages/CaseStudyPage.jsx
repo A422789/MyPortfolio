@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import Reveal from '../components/ui/Reveal';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { caseStudiesData, getCaseStudyBySlug } from '../content/caseStudiesData';
-import { optimizeCloudinaryUrl } from '../utils/cloudinary';
+import PortfolioImage from '../components/ui/PortfolioImage';
 import ActionButton from '../components/ui/ActionButton';
 
 const CaseStudyPage = () => {
@@ -73,15 +73,15 @@ const CaseStudyPage = () => {
             </ActionButton>
           </div>
 
-          <div className="flex items-center gap-3 text-xs sm:text-sm font-mono text-[#d4d4d4]">
-            <span>{study.readTime}</span>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-sm font-mono text-[#d4d4d4]">
+            <span className="inline-flex items-center rounded-full border border-[#995454]/60 bg-transparent px-3 py-1.5 font-medium text-[#c99a9a]">{study.readTime}</span>
             <span className="text-[#cea605]">·</span>
             <span>{study.timeline}</span>
           </div>
         </div>
 
         {/* Editorial Article Header */}
-        <motion.header
+        <Reveal as="header"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
@@ -167,29 +167,29 @@ const CaseStudyPage = () => {
                 <button
                   type="button"
                   onClick={() => handleCopy(study.demoCredentials.email, 'email')}
-                  className="px-3.5 py-1.5 rounded-lg bg-white/[0.05] border border-white/15 hover:border-[#cea605] text-xs sm:text-sm font-mono text-white hover:text-[#f2de8c] transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-transparent border border-white/15 hover:border-[#cea605] text-xs sm:text-sm font-mono text-white hover:text-[#f2de8c] transition-colors cursor-pointer"
                 >
                   {copiedField === 'email' ? '✓ Copied Email' : `Email: ${study.demoCredentials.email}`}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleCopy(study.demoCredentials.password, 'password')}
-                  className="px-3.5 py-1.5 rounded-lg bg-white/[0.05] border border-white/15 hover:border-[#cea605] text-xs sm:text-sm font-mono text-white hover:text-[#f2de8c] transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-transparent border border-white/15 hover:border-[#cea605] text-xs sm:text-sm font-mono text-white hover:text-[#f2de8c] transition-colors cursor-pointer"
                 >
                   {copiedField === 'password' ? '✓ Copied Password' : `Password: ${study.demoCredentials.password}`}
                 </button>
               </div>
             </div>
           )}
-        </motion.header>
+        </Reveal>
 
         {/* Visual Showcase: Dual Storefront + Admin Figures or Single Hero */}
         {hasDualImages ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <figure className="space-y-2.5">
               <div className="h-60 sm:h-68 overflow-hidden rounded-xl border border-white/15 bg-black">
-                <img
-                  src={optimizeCloudinaryUrl(study.heroImages.storefront.url, { width: 900 })}
+                <PortfolioImage
+                  src={study.heroImages.storefront.url}
                   alt={study.heroImages.storefront.caption}
                   className="w-full h-full object-cover"
                 />
@@ -211,8 +211,8 @@ const CaseStudyPage = () => {
 
             <figure className="space-y-2.5">
               <div className="h-60 sm:h-68 overflow-hidden rounded-xl border border-white/15 bg-black">
-                <img
-                  src={optimizeCloudinaryUrl(study.heroImages.admin.url, { width: 900 })}
+                <PortfolioImage
+                  src={study.heroImages.admin.url}
                   alt={study.heroImages.admin.caption}
                   className="w-full h-full object-cover"
                 />
@@ -234,11 +234,14 @@ const CaseStudyPage = () => {
           </div>
         ) : study.heroImages?.storefront?.url ? (
           <figure className="space-y-2.5">
-            <div className="max-h-[440px] overflow-hidden rounded-xl border border-white/15 bg-black">
-              <img
-                src={optimizeCloudinaryUrl(study.heroImages.storefront.url, { width: 1200 })}
+            <div
+              className={`${study.heroImages.storefront.fit === 'contain' ? 'h-[min(70vh,640px)] min-h-64' : 'max-h-[440px]'} overflow-hidden rounded-xl border border-white/15 bg-black`}
+              style={{ backgroundColor: study.heroImages.storefront.background }}
+            >
+              <PortfolioImage
+                src={study.heroImages.storefront.url}
                 alt={study.heroImages.storefront.caption || study.title}
-                className="w-full h-full object-cover"
+                className={`w-full h-full ${study.heroImages.storefront.fit === 'contain' ? 'object-contain p-3 sm:p-5' : 'object-cover'}`}
               />
             </div>
             {study.heroImages.storefront.caption && (
