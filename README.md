@@ -1,127 +1,188 @@
-# 🌐 Full-Stack MERN Developer Portfolio & Admin Dashboard
+# Ahmed Ayyad — Backend-Focused Full-Stack Developer Portfolio
 
-Welcome to my completely dynamic, database-driven **MERN Stack Portfolio**. 
-What started as a highly polished React.js frontend has now evolved into a complete, production-ready Full-Stack application featuring a dedicated secure Admin Dashboard for Content Management.
-
-This project showcases my ability to architect full-stack solutions, manage databases, handle cloud file storage, design premium user interfaces, and build robust RESTful APIs.
+**Live site:** [https://my-portfolio-rtte.vercel.app](https://my-portfolio-rtte.vercel.app)  
+**GitHub:** [A422789](https://github.com/A422789) · **LinkedIn:** [Ahmed Ayyad](https://www.linkedin.com/in/ahmad-ayyad-608293304/)
 
 ---
 
-## 🌟 The Architecture
+## Overview
 
-This application is composed of three interconnected parts:
+A production-grade, static-first personal portfolio built with React, Vite, and Tailwind CSS. The project showcases backend-focused full-stack projects, case studies, IBM professional certifications, and two internship experiences through a fully pre-rendered, SEO-optimised, and AI-agent-auditable web platform.
 
-1. **The Portfolio Frontend (React + Vite)**: The public-facing website featuring 3D animations, responsive layouts, and dynamic data fetching.
-2. **The Backend API (Node.js + Express)**: A highly secure, MVC-patterned API acting as the brain of the application.
-3. **The Admin Dashboard (React + Vite)**: A secure, JWT-authenticated portal where I can manage my entire portfolio content without touching a single line of code.
+All content is statically embedded at build time — no backend server, no database, no runtime API. Every page is generated as a standalone HTML file and served directly from Vercel CDN.
 
 ---
 
-## 🚀 Features Highlights
+## Architecture
 
-### 🎨 Frontend (The Portfolio)
-- **Dynamic Content**: Every text, project, skill, and social link is fetched dynamically from MongoDB.
-- **Cloudinary Media**: Images and PDFs (like my CV and certificates) are securely streamed from the cloud.
-- **Premium Animations**: Built with Framer Motion, featuring 3D hover effects, typing animations, and scroll reveals.
-- **Integrated Contact Form**: Submissions don't just go to my email (via Nodemailer)—they are also securely stored in the database for me to read in the dashboard.
-
-### 🛡️ Backend (The Engine)
-- **Strict MVC Architecture**: Clean code separation (Routes, Controllers, Models, Middleware, Utils).
-- **Advanced Security**: 
-  - JWT (JSON Web Tokens) for authentication.
-  - Three layers of Rate Limiting (Global, Auth, Contact).
-  - Helmet for HTTP headers & Mongo Sanitize for NoSQL injection prevention.
-  - Joi validation & HTML sanitization (XSS protection) for all incoming data.
-- **Cloudinary SDK**: Automated image and PDF uploading, overwriting, and deletion.
-- **Winston Logging**: Daily rotating logs keeping track of requests and potential errors.
-
-### 🎛️ Admin Dashboard (The Control Room)
-- **Dark/Gold Aesthetic**: A beautiful custom dashboard matching the premium feel of the portfolio.
-- **Analytics Overview**: Live stats showing total projects, skills, certificates, and unread messages.
-- **Complete CRUD Operations**: 
-  - Update profile bio, hero text, and titles.
-  - Add/Edit/Delete Projects, Skills (with custom SVG injection), and Certificates.
-  - Upload & Replace images and PDFs directly to Cloudinary.
-  - Read and manage contact form submissions.
+```
+frontend/
+└── portfolio/          ← The only active application
+    ├── scripts/        ← Build, asset-sync, audit, and static server scripts
+    ├── src/
+    │   ├── content/    ← All static data (projects, certifications, experience, profile)
+    │   ├── seo/        ← Canonical URLs, JSON-LD schemas, per-route metadata
+    │   ├── components/ ← Reusable UI and layout components
+    │   ├── sections/   ← Landing page section components
+    │   ├── pages/      ← Route-level page components
+    │   ├── layouts/    ← Shared page shell
+    │   ├── context/    ← Profile context provider
+    │   └── utils/      ← Contact form validation
+    ├── public/
+    │   ├── certificates/ ← Local certificate PDFs + pre-rendered PNG thumbnails
+    │   └── favicon.svg
+    ├── tests/          ← Automated audit tests (Node native test runner)
+    ├── vercel.json     ← Hosting rules (redirects, cache headers, clean URLs)
+    └── vite.config.js
+```
 
 ---
 
-## 🛠️ Tech Stack & Tools
+## Features
 
-### **Frontend & Admin Dashboard**
-- **React.js** (Vite)
-- **Tailwind CSS v4**
-- **Framer Motion** (3D Animations)
-- **Axios** (API Calls)
-- **React Router Dom** (Navigation)
-- **React Hot Toast** (Notifications)
-- **Lucide React** (Icons)
+### Static Pre-rendering (Phase 1 — Technical SEO)
+- Build script ([`scripts/build.mjs`](frontend/portfolio/scripts/build.mjs)) pre-renders all **15 public routes** into standalone HTML files using `react-dom/server` and `StaticRouter`.
+- Every page receives its own `<title>`, `<meta name="description">`, `<link rel="canonical">`, OpenGraph/Twitter card metadata, and a linked JSON-LD structured data graph (`Person`, `WebSite`, `WebPage`, `BreadcrumbList`).
+- Build automatically emits `sitemap.xml`, `robots.txt` (auto-noindex on preview deployments), and `llms.txt`.
+- Vercel is configured for HTTP 308 permanent redirect from `/credentials` to `/#experience`, real 404 handling, and long-lived immutable caching for hashed assets.
 
-### **Backend & Database**
-- **Node.js & Express.js**
-- **MongoDB & Mongoose** (Database & ODM)
-- **Cloudinary** (Cloud Media Storage)
-- **Nodemailer** (Email Notifications)
-- **JSON Web Tokens (JWT)** (Auth)
-- **Winston** (Logging)
-- **Joi** (Validation)
+### Local Assets & Performance (Phase 2)
+- 20 Cloudinary media sources are mirrored locally at build time ([`scripts/assets.mjs`](frontend/portfolio/scripts/assets.mjs)).
+- Sharp generates responsive WebP image variants (320w–1600w) with automatic `srcset`, `sizes`, and explicit aspect ratios to prevent layout shift.
+- All 15 certificate PDFs are stored locally in `public/certificates/`; first-page PNG thumbnails are pre-rendered at build time — no PDF.js is loaded during normal browsing.
+- Route-level code splitting via `React.lazy` keeps the initial client bundle at ~122 kB gzip (~389 kB uncompressed).
+
+### AI Search Visibility (Phase 3)
+- Technical case studies, project architecture, trade-offs, and credential summaries are fully present in server-rendered HTML — readable by Googlebot and AI crawlers (`OAI-SearchBot`) without JavaScript execution.
+- Machine-readable `llms.txt` reflects verified facts aligned with the official identity document.
+
+### Automated Testing & CI (Phase 4)
+- **7 / 7 test suites** pass via `npm test` (Node's native test runner), covering: build output validation, fault injection (broken canonical / duplicate title / malformed schema / dead link detection), sitemap integrity, HTML content checks, metadata escaping, and static preview HTTP status codes.
+- `npm run audit:seo` verifies all 15 generated pages with 0 errors.
+- GitHub Actions CI runs linting, build, tests, and SEO audit on every pull request and push.
 
 ---
 
-## ⚙️ Running Locally
+## Public Routes (15)
 
-Because this is a full-stack application, running it requires booting up the different environments.
+| Route | Description |
+| :--- | :--- |
+| `/` | Landing — Hero, Featured Work, Experience, Tech Stack, Background, Contact |
+| `/projects` | Full Projects & Case Studies archive |
+| `/work/he-skincare` | HE Skincare e-commerce case study |
+| `/work/project-management` | Project Engagement Tool case study |
+| `/work/neoteric-cms` | Neoteric CMS case study |
+| `/work/ecommerce-platform` | E-commerce Platform case study |
+| `/work/giftlink` | GiftLink IBM Capstone case study |
+| `/work/kubernetes-deployment` | Kubernetes Deployment case study |
+| `/work/enterprise-dashboard` | Enterprise Dashboard case study |
+| `/work/chat-boot` | Chat Bot case study |
+| `/work/cpp-hospital-system` | C++ Hospital System case study |
+| `/work/java-oop-system` | Java OOP System case study |
+| `/experience/ibm` | IBM Full-Stack Developer Professional Certificate experience |
+| `/experience/codealpha` | CodeAlpha Full-Stack Internship experience |
+| `/experience/riphah` | Riphah International University — Education |
 
-### 1. Prerequisites
-- Node.js (v18+)
-- MongoDB Atlas cluster URI
-- Cloudinary credentials (Cloud Name, API Key, Secret)
-- Gmail App Password (for Nodemailer)
+---
 
-### 2. Environment Variables
-Create a `.env` file in the `backend/` directory (see `backend/.env.example` for details).
-Create a `.env` file in the `admin-dashboard/` directory containing:
-`VITE_API_BASE_URL=http://localhost:5000/api`
+## Tech Stack
 
-### 3. Installation & Database Seeding
-Navigate to the backend and install dependencies:
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | React 19, Vite 7 |
+| **Styling** | Tailwind CSS v4 |
+| **Routing** | React Router DOM v7 |
+| **Animation** | Framer Motion |
+| **Forms** | React Hook Form + Zod |
+| **Contact Delivery** | Formspree (static — no backend) |
+| **Image Processing (Build)** | Sharp, @napi-rs/canvas |
+| **PDF Thumbnails (Build)** | pdfjs-dist (Node build-time only) |
+| **Testing** | Node native test runner |
+| **Deployment** | Vercel (static output) |
+
+---
+
+## Running Locally
+
 ```bash
-cd backend
+# 1. Clone the repository
+git clone https://github.com/A422789/MyPortfolio.git
+cd MyPortfolio/frontend/portfolio
+
+# 2. Install dependencies
 npm install
-```
-*Initial Setup:* Run the custom seed script to populate the database and upload assets to Cloudinary.
-```bash
-npm run seed
-```
 
-### 4. Booting Up
-You will need three terminals:
+# 3. Sync remote assets locally (run once — requires internet connection)
+npm run assets:sync
 
-**Terminal 1 (Backend API):**
-```bash
-cd backend
+# 4. Start the development server
 npm run dev
 ```
 
-**Terminal 2 (Frontend Portfolio):**
+> **Note:** `npm run dev` automatically calls `assets:prepare` to generate local WebP variants and certificate thumbnails before starting Vite.
+
+## Building for Production
+
 ```bash
-cd frontend/portfolio
-npm install
-npm run dev
+npm run build
 ```
 
-**Terminal 3 (Admin Dashboard):**
+Outputs a fully pre-rendered `dist/` folder with 15 static HTML pages, hashed assets, `sitemap.xml`, `robots.txt`, and `llms.txt`.
+
+## Running Tests & Audits
+
 ```bash
-cd frontend/admin-dashboard
-npm install
-npm run dev
+# Automated test suite (7 test files)
+npm test
+
+# Static SEO audit against the build output
+npm run audit:seo
+
+# Lighthouse performance baseline (runs against a local static server)
+npm run audit:performance
+
+# Preview the production build locally
+npm run preview
 ```
 
 ---
 
-## 📩 Contact & Links
+## Content Structure
 
-- **Email**: a422789255@gmail.com
-- **LinkedIn**: [Ahmad Ayyad](https://www.linkedin.com/in/ahmad-ayyad-608293304/)
+All portfolio data is managed as static JavaScript modules in `frontend/portfolio/src/content/`:
 
-⭐ *This portfolio represents my transition from frontend development to full-stack engineering, demonstrating my commitment to building high-quality, production-ready, and scalable architectures.*
+| File | Contents |
+| :--- | :--- |
+| `profileData.js` | Name, title, bio, contact details, CV link |
+| `projectsData.js` | Project cards for the archive |
+| `caseStudiesData.js` | Full case study data (problem, approach, results, links) |
+| `experienceData.js` | Internship and certification experience entries |
+| `certificationsData.js` | IBM and CodeAlpha certificates |
+| `skillsData.js` | Categorised technical skill matrix |
+| `socialLinksData.js` | GitHub, LinkedIn, WhatsApp links |
+| `backgroundData.js` | Education and background section content |
+
+To update any displayed content, edit the relevant file in `src/content/` and rebuild.
+
+---
+
+## Deployment (Vercel)
+
+| Setting | Value |
+| :--- | :--- |
+| **Root Directory** | `frontend/portfolio` |
+| **Framework Preset** | Vite |
+| **Build Command** | `npm run build` |
+| **Output Directory** | `dist` |
+| **Production Branch** | `main` (or your preferred branch) |
+
+The `vercel.json` file at `frontend/portfolio/vercel.json` handles all routing rules.
+
+---
+
+## Contact
+
+- **Email:** ahmadayyad.se.dev@gmail.com
+- **WhatsApp:** +20 122 504 4423
+- **LinkedIn:** [Ahmed Ayyad](https://www.linkedin.com/in/ahmad-ayyad-608293304/)
+- **GitHub:** [A422789](https://github.com/A422789)
