@@ -4,7 +4,7 @@ export const profileData = {
   },
   // Update this URL whenever a new CV PDF is uploaded
   cvFile: {
-    url: 'https://res.cloudinary.com/djwqb3ibk/raw/upload/v1785893747/portfolio/cv/1785893746077-367252348_l74qia.pdf',
+    url: 'https://res.cloudinary.com/djwqb3ibk/raw/upload/v1794376936/portfolio/cv/1785893746077-367252348_l74qia.pdf',
   },
   name: 'Ahmed Ayyad',
   title: 'Backend-Focused Full-Stack Developer',
