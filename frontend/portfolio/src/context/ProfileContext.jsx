@@ -2,7 +2,12 @@ import media from '../generated/media.json';
 import { createContext, useContext } from 'react';
 import { profileData } from '../content/profileData';
 
-const localProfile = { ...profileData, cvFile: { url: media[profileData.cvFile.url].src } };
+const localProfile = {
+  ...profileData,
+  cvFile: {
+    url: media[profileData.cvFile.url]?.src ?? profileData.cvFile.url,
+  },
+};
 
 const ProfileContext = createContext({ profile: localProfile });
 
